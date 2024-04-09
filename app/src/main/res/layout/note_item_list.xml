@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:maxHeight="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardElevation="7dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="10dp"
+        app:cardMaxElevation="4dp"
+        app:cardPreventCornerOverlap="true"
+        android:backgroundTintMode="multiply"
+        android:background="@drawable/out_line_shape"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:background="@drawable/out_line_shape"
+
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="this Note"
+                android:textSize="20dp"
+                android:textColor="#9A9C27B0"
+                android:textStyle="bold"
+                />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/circle_two_colored"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not app create a usin full function and for the android application in java language"
+                android:textSize="10sp"
+                android:maxHeight="270dp"
+                android:maxLines="7"
+                android:layout_marginTop="7dp"
+                android:width="350dp"
+                android:textColor="#C5BFBF"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Satday 30 December"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/primaryColor"
+                android:textStyle="italic"
+                android:textSize="9sp"
+                />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

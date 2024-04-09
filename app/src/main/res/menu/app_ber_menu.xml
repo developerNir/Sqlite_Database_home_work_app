@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/todo_list_ic"
+        android:title="todo"
+        app:showAsAction="ifRoom"/>
+
+    <!-- Settings, must always be in the overflow. -->
+    <item android:id="@+id/action_settings"
+        android:title="setting"
+        android:icon="@drawable/settings_ic"
+        android:iconTintMode="multiply"
+        android:iconTint="#9C27B0"
+        app:showAsAction="never"/>
+
+
+</menu>

@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.fragmentView.Inventroy">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                <androidx.cardview.widget.CardView
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    app:cardElevation="7dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardMaxElevation="3dp"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_margin="10dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#8D7A767A"
+                            android:textStyle="bold"
+                            android:text="Total"
+                            android:textSize="20sp"
+
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="total Product count : "
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="#9C27B0"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="456"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="#9C27B0"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="total Prouct price : "
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="#9C27B0"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$ 59697.45"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:textColor="#9C27B0"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            >
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:cardElevation="5dp"
+                                app:cardCornerRadius="10dp"
+                                app:cardUseCompatPadding="true"
+                                app:cardPreventCornerOverlap="true"
+                                android:layout_weight="1"
+                                app:cardMaxElevation="4dp"
+                                >
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="5dp"
+                                    android:background="@drawable/white_out_line"
+                                    >
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="today Total"
+                                        android:textStyle="bold"
+                                        android:textSize="17sp"
+
+                                        />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="total Product count : "
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="456"
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="total Prouct price : "
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="$ 59697.45"
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                app:cardElevation="5dp"
+                                app:cardCornerRadius="10dp"
+                                app:cardUseCompatPadding="true"
+                                app:cardPreventCornerOverlap="true"
+                                android:layout_weight="1"
+                                app:cardMaxElevation="4dp"
+                                >
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    android:padding="5dp"
+                                    android:background="@drawable/white_out_line"
+                                    >
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Weeks Total"
+                                        android:textStyle="bold"
+                                        android:textSize="17sp"
+
+                                        />
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="total Product count : "
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="45"
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                    </LinearLayout>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        >
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="total Prouct price : "
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="$ 597.45"
+                                            android:textSize="10sp"
+                                            android:textStyle="bold"
+                                            android:textColor="#9C27B0"
+                                            />
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    app:cardElevation="7dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardMaxElevation="3dp"
+
+                    >
+
+
+
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    app:cardElevation="7dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardMaxElevation="3dp"
+
+                    >
+
+
+
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="5dp"
+        android:background="@drawable/out_line_shape"
+        >
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
+
+            <!--line graph view where we will
+                be displaying our data-->
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/idGraphView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

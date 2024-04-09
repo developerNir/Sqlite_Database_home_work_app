@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navHome"
+        android:title="Home"
+        android:icon="@drawable/home_ic"
+        android:iconTint="#9C27B0"
+        />
+    <item
+        android:id="@+id/navNote"
+        android:title="Note"
+        android:icon="@drawable/note_ic"
+        android:iconTint="#9C27B0"
+
+        />
+    <item
+        android:id="@+id/navWallet"
+        android:title="Wallet"
+        android:icon="@drawable/balance_wallet_ic"
+        android:iconTint="#9C27B0"
+        />
+    <item
+        android:id="@+id/navTodo"
+        android:title="Todo"
+        android:icon="@drawable/todo_list_ic"
+        android:iconTint="#9C27B0"
+        />
+    <item
+        android:id="@+id/navInventory"
+        android:title="Inventory"
+        android:icon="@drawable/inventory_ic"
+        android:iconTint="#9C27B0"
+        />
+</menu>
