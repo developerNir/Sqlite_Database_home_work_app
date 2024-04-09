@@ -26,7 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
 
-    private FrameLayout frameLayout;
+    public static FrameLayout frameLayout;
     private BottomNavigationView bottomNavigationView;
 
     @Override

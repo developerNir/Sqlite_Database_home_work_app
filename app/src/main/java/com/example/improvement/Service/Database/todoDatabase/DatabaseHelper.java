@@ -86,6 +86,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+
+
+    // todo ==================== delete data by Id ============================
+    public Integer deleteTodoById(String id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete(TODO_TABLE , "ID=?" , new String[]{id});
+    }
+
     //================================ Note =================================
     // note table data insert -------------------------------------
     public Boolean noteInsert(String title, String description, String startTime){

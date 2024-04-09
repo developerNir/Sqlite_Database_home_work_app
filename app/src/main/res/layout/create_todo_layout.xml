@@ -16,7 +16,6 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:id="@+id/dialog_title"
             android:textSize="20dp"
             android:background="@drawable/out_line_shape"
@@ -29,12 +28,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Title"
+        android:hint="Description"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:textSize="20dp"
             android:lines="6"
             android:id="@+id/edit_text"
@@ -44,32 +42,25 @@
             android:maxLines="20"
             />
     </com.google.android.material.textfield.TextInputLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingVertical="10dp"
-    android:weightSum="2"
-    >
-    <Button
-        android:id="@+id/button_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:backgroundTint="@drawable/white_out_line"
-        android:layout_weight="1"
-        />
 
-    <Button
-        android:id="@+id/button_cancel"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:backgroundTintMode="multiply"
-        android:backgroundTint="@drawable/white_out_line"
-        android:layout_weight="1"
-        />
-</LinearLayout>
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:paddingVertical="10dp"
+
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="none"
+            android:background="@drawable/out_line_shape"
+            android:text="Status" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

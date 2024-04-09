@@ -1,6 +1,7 @@
 package com.example.improvement.View.fragmentView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 
@@ -32,6 +33,7 @@ public class Note extends Fragment {
     ListView listView;
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     HashMap<String,String>hashMap;
+    AlertDialog alertDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,14 +69,26 @@ public class Note extends Fragment {
 
         floatingActionButton.setOnClickListener(view -> {
 
-            databaseHelper = new DatabaseHelper(getContext());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-            Boolean isCheck = databaseHelper.noteInsert("this is my fast note", "Programmimg is not a Craiar it is a fun and vary nice Working project ", "Sunday 03 December");
-            if (isCheck){
-                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
-            }
+
+            builder.setTitle("Enter Data");
+            View viewDialog = getLayoutInflater().inflate(R.layout.create_todo_layout, null);
+
+
+            builder.setView(viewDialog);
+            alertDialog = builder.create();
+            alertDialog.show();
+
+
+//            databaseHelper = new DatabaseHelper(getContext());
+//
+//            Boolean isCheck = databaseHelper.noteInsert("this is my fast note", "Programmimg is not a Craiar it is a fun and vary nice Working project ", "Sunday 03 December");
+//            if (isCheck){
+//                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+//            }else {
+//                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+//            }
 
 
         });

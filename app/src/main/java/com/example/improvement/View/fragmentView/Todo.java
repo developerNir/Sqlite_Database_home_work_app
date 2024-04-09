@@ -4,13 +4,17 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,13 +34,15 @@ public class Todo extends Fragment {
     private DatabaseHelper databaseHelper;
     FloatingActionButton floatingActionButton;
     TextView textView;
-
     ListView listView;
+    ConstraintLayout constraintLayout;
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     HashMap<String,String>hashMap;
+    Cursor cursor;
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,9 +54,10 @@ public class Todo extends Fragment {
 
         listView = myView.findViewById(R.id.listViewTodo);
         textView = myView.findViewById(R.id.massageTV);
+        constraintLayout = myView.findViewById(R.id.constraintLayout);
         databaseHelper = new DatabaseHelper(getContext());
 
-        Cursor cursor = databaseHelper.getAllData();
+        cursor = databaseHelper.getAllData();
         // list view and data form Adapter ==========================
         if(cursor.getCount() == 0){
             textView.setVisibility(View.VISIBLE);
@@ -62,11 +69,11 @@ public class Todo extends Fragment {
 
 
         // create Todo call ==============================
-        floatingActionButton.setOnClickListener(view -> {
 
-            addData();
 
-        });
+        addData();
+
+
 
 
 
@@ -84,14 +91,14 @@ public class Todo extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+                constraintLayout.setVisibility(View.GONE);
 
-                boolean isInserted  = databaseHelper.insertData("Android studio update", "I have success for the development sqlite database", "Satday 02 Dec", "Fryday 22 April", "Coming");
 
-                if (isInserted){
-                    Toast.makeText(getContext(), "Data Inserted...", Toast.LENGTH_SHORT).show();
-                }else
-                    Toast.makeText(getContext(), "Something went Wrong", Toast.LENGTH_SHORT).show();
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.todoFrameLayout, new createTodo());
+                fragmentTransaction.commit();
+
 
             }
         });
@@ -123,13 +130,16 @@ public class Todo extends Fragment {
             View view1 = layoutInflater.inflate(R.layout.todo_item, null ,false);
 
             TextView title, description, createDate, statusTV;
+            ImageButton deleteImageButton;
+
             title = view1.findViewById(R.id.titleTvTodo);
             description = view1.findViewById(R.id.desTvTodo);
-
             createDate = view1.findViewById(R.id.createDateTvTodo);
             statusTV = view1.findViewById(R.id.statusTvTodo);
+            deleteImageButton = view1.findViewById(R.id.deleteButtonImage);
 
             hashMap = arrayList.get(i);
+            String idTodo = hashMap.get("id");
             String titleTodo = hashMap.get("title");
             String DescriptionTodo = hashMap.get("description");
             String endDateTodo = hashMap.get("endDate");
@@ -141,6 +151,19 @@ public class Todo extends Fragment {
             description.setText(DescriptionTodo);
             createDate.setText(createDateTodo);
             statusTV.setText(statusTodo);
+
+            deleteImageButton.setOnClickListener(view2 -> {
+                Integer var = databaseHelper.deleteTodoById(idTodo);
+
+
+                if(var > 0){
+
+
+                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
+                }
+            });
 
 
 
