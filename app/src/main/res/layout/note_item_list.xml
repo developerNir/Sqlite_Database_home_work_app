@@ -25,6 +25,7 @@
 
             >
             <TextView
+                android:id="@+id/titleNoteTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="this Note"
@@ -39,6 +40,7 @@
                 android:background="@drawable/circle_two_colored"
                 />
             <TextView
+                android:id="@+id/descriptionNoteTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Not app create a usin full function and for the android application in java language"
@@ -50,6 +52,7 @@
                 android:textColor="#C5BFBF"
                 />
             <TextView
+                android:id="@+id/startTimeTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Satday 30 December"

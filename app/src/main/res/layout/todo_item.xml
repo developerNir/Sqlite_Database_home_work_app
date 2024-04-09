@@ -70,6 +70,7 @@
                 app:layout_constraintStart_toEndOf="@+id/inlineContentView">
 
                 <TextView
+                    android:id="@+id/titleTvTodo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Android Studio"
@@ -77,6 +78,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/desTvTodo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingVertical="5dp"
@@ -88,6 +90,7 @@
                     android:textStyle="normal" />
 
                 <TextView
+                    android:id="@+id/createDateTvTodo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -96,6 +99,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/statusTvTodo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Upcoming"

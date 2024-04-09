@@ -2,6 +2,7 @@ package com.example.improvement.Service.Database.todoDatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -42,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    // insert Data ----------------------------------------
+    // insert Data ---------------------todo-------------------
     public Boolean insertData(String title, String description, String endDate, String createDate, String status){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -65,6 +66,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    // todo ===================== getData By id============================
+
+    public Cursor getData(String id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT * FROM " +TODO_TABLE+ " WHERE ID='" +id+"'";
+        Cursor cursor = db.rawQuery(query , null);
+
+        return cursor;
+    }
+
+    // todo ================== getAll Data =================================
+
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TODO_TABLE , null);
+        return cursor;
+    }
+
+    //================================ Note =================================
     // note table data insert -------------------------------------
     public Boolean noteInsert(String title, String description, String startTime){
 
@@ -85,6 +107,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
 
+    }
+
+    // note all data get form database ===================================
+
+    public Cursor getAllDataFromNote() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor1 = db.rawQuery("SELECT * FROM NOTE_TABLE" , null);
+        return cursor1;
     }
 
 
