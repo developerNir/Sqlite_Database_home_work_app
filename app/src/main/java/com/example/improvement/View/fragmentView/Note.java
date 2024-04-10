@@ -5,14 +5,17 @@ import android.app.AlertDialog;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.example.improvement.R;
 
 import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,16 +63,10 @@ public class Note extends Fragment {
         }else {
             loadData(cursor);
         }
-//        while (cursor.moveToNext()){
-//            buffer.append("id : " + cursor.getString(0) + "\n");
-//            buffer.append("title : " + cursor.getString(1) + "\n");
-//            buffer.append("description : " + cursor.getString(2) + "\n");
-//            buffer.append("startTime : " + cursor.getString(3) + "\n\n");
-//        }
-//
 
 
 
+        // AlertDialog =================note create =========================
         floatingActionButton.setOnClickListener(view -> {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -82,19 +80,66 @@ public class Note extends Fragment {
             alertDialog = builder.create();
             alertDialog.setCancelable(false);
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            TextInputEditText titleEd,desEd,statusEd;
+            titleEd = (TextInputEditText) viewDialog.findViewById(R.id.dialog_title);
+            desEd = (TextInputEditText) viewDialog.findViewById(R.id.edit_text);
+            statusEd = (TextInputEditText) viewDialog.findViewById(R.id.statusTextEd);
+
+            Button dialogButtonCancle = (Button) viewDialog.findViewById(R.id.btn_dialog_cancle);
+            dialogButtonCancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            // Ok button ==================================
+            Button dialogButtonOk = (Button) viewDialog.findViewById(R.id.btn_dialog);
+            dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public int hashCode() {
+                    return super.hashCode();
+                }
+
+                @Override
+                public void onClick(View v) {
+
+                    String title = titleEd.getText().toString();
+                    String des = desEd.getText().toString();
+                    String status = statusEd.getText().toString();
+
+                    if (title.length()==0){
+                        titleEd.setError("Value is Emtiy");
+                    } else if (des.length() == 0) {
+                        desEd.setError("Value is Emtiy");
+
+                    } else if (status.length() == 0) {
+                        statusEd.setError("Value is Emtiy");
+
+                    }else {
+
+                        databaseHelper = new DatabaseHelper(getContext());
+
+                        Boolean isCheck = databaseHelper.noteInsert(title, des, status);
+                        if (isCheck){
+                            alertDialog.dismiss();
+
+                            // three line code is Reload Fragment ==========
+
+
+                            Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                }
+            });
+
             alertDialog.show();
 
-
-
-
-//            databaseHelper = new DatabaseHelper(getContext());
-//
-//            Boolean isCheck = databaseHelper.noteInsert("this is my fast note", "Programmimg is not a Craiar it is a fun and vary nice Working project ", "Sunday 03 December");
-//            if (isCheck){
-//                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
-//            }else {
-//                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
-//            }
 
 
         });
