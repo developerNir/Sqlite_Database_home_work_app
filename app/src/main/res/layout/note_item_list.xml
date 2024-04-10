@@ -21,6 +21,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="15dp"
+            android:id="@+id/note_Item_Linear"
             android:background="@drawable/out_line_shape"
 
             >

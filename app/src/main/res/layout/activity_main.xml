@@ -8,19 +8,35 @@
     android:orientation="vertical"
     tools:context=".View.activityView.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#439C27B0"
-        android:elevation="4dp"
-        app:title="@string/app_name"
-        app:titleTextColor="@color/white"
-        app:menu="@menu/app_ber_menu"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/my_toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="#439C27B0"-->
+<!--        android:elevation="4dp"-->
+<!--        app:title="@string/app_name"-->
+<!--        app:titleTextColor="@color/black"-->
+<!--        app:menu="@menu/app_ber_menu"-->
+<!--        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
+<!--        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
 
-        />
+<!--        />-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Best Productivity"
+            app:titleTextColor="#FFFFFF"
+            app:navigationIcon="@drawable/three_line_ic"
+            app:navigationIconTint="#FFFFFF"
+            android:background="#9C27B0"
+            app:menu="@menu/app_ber_menu"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

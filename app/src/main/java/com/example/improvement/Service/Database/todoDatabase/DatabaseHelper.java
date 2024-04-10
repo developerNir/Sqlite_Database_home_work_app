@@ -127,5 +127,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor1;
     }
 
+    // note Update ===============================================
+
+    public boolean updateNoteData(String id , String title ,String des, String startTime){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id" , id);
+        contentValues.put("title" , title);
+        contentValues.put("description" , des);
+        contentValues.put("startTime" , startTime);
+
+        db.update("NOTE_TABLE" , contentValues , "ID=?" , new  String[]{id});
+        return true;
+    }
+
 
 }

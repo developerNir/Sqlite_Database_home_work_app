@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/todoCrateLayout"
-    android:orientation="vertical"
-    android:background="@drawable/dialog_background"
-    android:padding="20dp">
+    android:id="@+id/updateNoteFrameLayout"
+    tools:context=".View.fragmentView.Note_Update">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:id="@+id/updateNoteLayout"
+        android:background="@drawable/white_out_line"
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/backspace_ic"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="50dp"
+            app:tint="@color/white" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update Note"
+            android:textSize="30sp"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:textColor="#ffff"
+            />
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Note Create"
-        android:textSize="30sp"
-        android:layout_marginVertical="10dp"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#ffff"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Note Create"
+        android:text="title"
         android:layout_marginTop="15dp"
         android:textColor="#ffff"
         android:textSize="10sp"
@@ -31,7 +53,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:hint="Title"
-        app:hintAnimationEnabled="false"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -58,7 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:hint="Description"
-        app:hintAnimationEnabled="false"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -66,9 +86,9 @@
             android:textSize="15sp"
             android:lines="6"
             android:id="@+id/edit_text"
-            android:textColor="@color/white"
             android:background="@drawable/out_line_shape"
             android:gravity="top|left"
+            android:textColor="@color/white"
             android:autoLink="all"
             android:maxLines="20"
             />
@@ -86,8 +106,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        app:placeholderText="Status"
-        app:hintAnimationEnabled="false"
         >
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -110,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="OK"
-            android:id="@+id/btn_dialog"
+            android:id="@+id/btn_dialog_Ok"
             android:gravity="center_vertical|center_horizontal"
             android:layout_below="@+id/text_dialog"
             android:layout_marginVertical="20dp"
@@ -138,6 +156,6 @@
 
     </LinearLayout>
 
+    </LinearLayout>
 
-
-</LinearLayout>
+</FrameLayout>

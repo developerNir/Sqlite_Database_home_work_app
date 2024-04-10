@@ -8,7 +8,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -16,7 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +44,9 @@ public class Note extends Fragment {
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     HashMap<String,String>hashMap;
     AlertDialog alertDialog;
+    ConstraintLayout frameLayout_Note;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class Note extends Fragment {
 
         textView = myView.findViewById(R.id.massageTV);
         listView = myView.findViewById(R.id.listViewNote);
+        frameLayout_Note = myView.findViewById(R.id.noteConstrait);
 
         databaseHelper = new DatabaseHelper(getContext());
 
@@ -125,8 +132,7 @@ public class Note extends Fragment {
                         if (isCheck){
                             alertDialog.dismiss();
 
-                            // three line code is Reload Fragment ==========
-
+                            //  code is Reload Fragment ==========
 
                             Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
                         }else {
@@ -148,6 +154,7 @@ public class Note extends Fragment {
 
         return myView;
     }
+
 
     // List and Adapter ==========================note ========================
     public class MyAdapter extends BaseAdapter {
@@ -174,15 +181,37 @@ public class Note extends Fragment {
             View view1 = layoutInflater.inflate(R.layout.note_item_list, null ,false);
 
             TextView title, description, startTime;
+            LinearLayout linearLayout;
+
             title = view1.findViewById(R.id.titleNoteTv);
             description = view1.findViewById(R.id.descriptionNoteTv);
             startTime = view1.findViewById(R.id.startTimeTv);
+            linearLayout = view1.findViewById(R.id.note_Item_Linear);
 
             hashMap = arrayList.get(i);
+            String idNote = hashMap.get("id");
             String titleNote = hashMap.get("title");
             String DescriptionNote = hashMap.get("description");
             String startTimeNote = hashMap.get("startTime");
 
+            linearLayout.setOnClickListener(view2 -> {
+
+                frameLayout_Note.setVisibility(View.GONE);
+
+                Note_Update.titleText = titleNote;
+                Note_Update.des = DescriptionNote;
+                Note_Update.status = startTimeNote;
+                Note_Update.id = idNote;
+
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.note_FrameLayout, new Note_Update());
+                fragmentTransaction.commit();
+
+
+
+
+            });
 
             title.setText(titleNote);
             description.setText(DescriptionNote);
