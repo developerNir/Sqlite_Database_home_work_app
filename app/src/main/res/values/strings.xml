@@ -4,4 +4,10 @@
     <string name="SplashScreen">Improvement</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="status">
+        <item >Upcoming</item>
+        <item >complete</item>
+        <item >panding</item>
+        <item >jest now</item>
+    </string-array>
 </resources>
