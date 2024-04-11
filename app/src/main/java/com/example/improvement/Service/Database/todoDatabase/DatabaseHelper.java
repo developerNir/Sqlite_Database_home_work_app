@@ -28,14 +28,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        sqLiteDatabase.execSQL("CREATE TABLE WALLET_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, whare TEXT, time TEXT, product TEXT, type TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE NOTE_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, startTime TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "+ TODO_TABLE+" (id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT, description TEXT, endDate TEXT, createDate TEXT, status TEXT)");
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS WALLET_TABLE " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS NOTE_TABLE " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TODO_TABLE );
         // Problem One that is my main problem ======================
@@ -150,6 +153,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return db.delete("NOTE_TABLE" , "ID=?" , new String[]{id});
     }
+
+    // Wallet ====================== wallet ===========================================
+
+
+
+
+
+
+
+
+
+
+
+
+    // Wallet ====================== wallet ===========================================
+
+
+    // insert Data ---------------------todo-------------------
+    public Boolean insertWalletData(String title, String where, String time,String product, String type){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("title", title);
+        contentValues.put("whare", where);
+        contentValues.put("time", time);
+        contentValues.put("product", product);
+        contentValues.put("type", type);
+
+        long var = db.insert("WALLET_TABLE", null, contentValues );
+
+
+        if(var == -1){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+
+
+
+
+
+
 
 
 }

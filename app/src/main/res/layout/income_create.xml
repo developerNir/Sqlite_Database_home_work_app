@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/white_background"
+        >
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Income/Express List"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:paddingVertical="5dp"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Why You Buy"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleEd"
+                android:textSize="15sp"
+                android:maxLines="1"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Where are you buy?"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:lines="3"
+                android:id="@+id/whereEd"
+                android:gravity="top|left"
+                android:autoLink="all"
+                android:maxLines="20"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="What is the Product"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/productEd"
+                android:textSize="15sp"
+                android:maxLines="1"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/eDateTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Date Set"
+            android:background="@drawable/white_out_line"
+            android:layout_marginTop="10dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:id="@+id/checkBoxIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/primaryColor"
+                android:text="Income" />
+            <CheckBox
+                android:id="@+id/checkBoxExpress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryColor"
+                android:text="Express" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="OK"
+                android:id="@+id/btn_dialog"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/text_dialog"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/two_color_shape"
+                android:drawableStart="@drawable/baseline_check_24"
+                android:drawableTint="@color/white"
+                android:drawablePadding="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffffff" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="CANCLE"
+                android:id="@+id/btn_dialog_cancle"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_below="@+id/text_dialog"
+                android:layout_marginVertical="20dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/two_color_shape"
+                android:drawableStart="@drawable/baseline_check_24"
+                android:drawableTint="@color/white"
+                android:drawablePadding="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffffff" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

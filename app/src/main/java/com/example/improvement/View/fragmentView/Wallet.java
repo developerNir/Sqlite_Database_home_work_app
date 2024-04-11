@@ -1,6 +1,9 @@
 package com.example.improvement.View.fragmentView;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,14 +11,21 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.improvement.R;
+import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
@@ -35,14 +45,22 @@ public class Wallet extends Fragment {
 
 
 
+    // Extended Flowting Action Button ===================
+    ExtendedFloatingActionButton addManyIncome ,incomButton, expressButton;
+    TextView incomButtonTopTexView, expressButtonTextView;
+    Boolean isActionsView;
+
+
+    // Alert dialog =========
+    AlertDialog alertDialog;
+
+    // Tab Button ==============
+    Button ButtonTabIncome,ButtonTabExpress;
 
 
 
-
-
-
-
-
+    private DatabaseHelper databaseHelper;
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,10 +69,168 @@ public class Wallet extends Fragment {
 
 
 
+        addManyIncome = myView.findViewById(R.id.addManyIncome);
+        expressButton = myView.findViewById(R.id.expressButton);
+        incomButton = myView.findViewById(R.id.incomButton);
+        incomButtonTopTexView = myView.findViewById(R.id.incomButtonTopTexView);
+        expressButtonTextView = myView.findViewById(R.id.expressButtonTextView);
+
+        ButtonTabIncome = myView.findViewById(R.id.buttonTabIncome);
+        ButtonTabExpress = myView.findViewById(R.id.buttonTabExpress);
+
+        incomButton.setVisibility(View.GONE);
+        expressButton.setVisibility(View.GONE);
+        incomButtonTopTexView.setVisibility(View.GONE);
+        expressButtonTextView.setVisibility(View.GONE);
+
+        isActionsView = false;
+
+        addManyIncome.setExtended(false);
+
+        addManyIncome.setOnClickListener(view -> {
+            if (!isActionsView){
+                incomButton.show();
+                incomButtonTopTexView.setVisibility(View.VISIBLE);
+                expressButton.show();
+                expressButtonTextView.setVisibility(View.VISIBLE);
+
+                addManyIncome.setExtended(true);
+                isActionsView = true;
+
+            }else {
+
+                incomButton.hide();
+                expressButton.hide();
+                expressButtonTextView.setVisibility(View.GONE);
+                incomButtonTopTexView.setVisibility(View.GONE);
+
+                addManyIncome.setExtended(false);
+                isActionsView = false;
+            }
+
+
+        });
+
+
+        // Tab Button Work ======================================
+
+        ButtonTabIncome.setOnClickListener(view -> {
+            ButtonTabIncome.setTextColor(getResources().getColor(R.color.ColorActive));
+            ButtonTabExpress.setTextColor(getResources().getColor(R.color.white));
+
+        });
+
+        ButtonTabExpress.setOnClickListener(view -> {
+            ButtonTabExpress.setTextColor(getResources().getColor(R.color.ColorActive));
+            ButtonTabIncome.setTextColor(getResources().getColor(R.color.white));
+        });
 
 
 
 
+
+        databaseHelper = new DatabaseHelper(getContext());
+
+        // Alertdialog show when click this button ==============================
+        incomButton.setOnClickListener(view -> {
+
+
+
+//            Insert data form Wallet table ===================================
+//            Boolean isCreated = databaseHelper.insertWalletData("Buy a phone", "Boura super market", "sunday 30 April", "Mobile Phone", "express");
+//
+//            if (isCreated){
+//                Toast.makeText(getContext(), "Data is inserted ...", Toast.LENGTH_SHORT).show();
+//            }else {
+//                Toast.makeText(getContext(), "Data is not insert ...", Toast.LENGTH_SHORT).show();
+//
+//            }
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+
+                builder.setTitle("Create");
+                View viewDialog = getLayoutInflater().inflate(R.layout.income_create, null);
+
+
+                builder.setView(viewDialog);
+                alertDialog = builder.create();
+                alertDialog.setCancelable(false);
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                TextInputEditText titleEd,where,product;
+                titleEd = (TextInputEditText) viewDialog.findViewById(R.id.titleEd);
+                where = (TextInputEditText) viewDialog.findViewById(R.id.whereEd);
+                product = (TextInputEditText) viewDialog.findViewById(R.id.productEd);
+
+                Button dialogButtonCancle = (Button) viewDialog.findViewById(R.id.btn_dialog_cancle);
+                dialogButtonCancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+
+                // Ok button ==================================
+                Button dialogButtonOk = (Button) viewDialog.findViewById(R.id.btn_dialog);
+                dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public int hashCode() {
+                        return super.hashCode();
+                    }
+
+                    @Override
+                    public void onClick(View v) {
+
+                        String title = titleEd.getText().toString();
+                        String des = where.getText().toString();
+                        String status = product.getText().toString();
+
+                        if (title.length()==0){
+                            titleEd.setError("Value is Emtiy");
+                        } else if (des.length() == 0) {
+                            where.setError("Value is Emtiy");
+
+                        } else if (status.length() == 0) {
+                            product.setError("Value is Emtiy");
+
+                        }else {
+
+                            databaseHelper = new DatabaseHelper(getContext());
+
+                            Boolean isCheck = databaseHelper.insertWalletData(title, des, "Monday 02 April", status, "Income");
+                            if (isCheck){
+                                alertDialog.dismiss();
+
+
+
+                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                    }
+                });
+
+                alertDialog.show();
+
+
+
+            incomButton.hide();
+            expressButton.hide();
+            expressButtonTextView.setVisibility(View.GONE);
+            incomButtonTopTexView.setVisibility(View.GONE);
+
+
+            isActionsView = false;
+
+            addManyIncome.setExtended(false);
+
+
+        });
 
 
 
