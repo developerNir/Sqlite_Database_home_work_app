@@ -14,7 +14,7 @@
         android:gravity="center"
         android:id="@+id/textview"
         android:text="@string/app_name"
-        android:textSize="39sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:textColor="#9C27B0"

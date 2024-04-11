@@ -32,11 +32,51 @@ public class Wallet extends Fragment {
 
     // creating a string array for displaying days.
     String[] days = new String[]{"Sunday", "Monday", "Tuesday", "Thursday", "Friday", "Saturday"};
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView = inflater.inflate(R.layout.fragment_wallet, container, false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -129,10 +169,57 @@ public class Wallet extends Fragment {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return myView;
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // array list for first set
         private ArrayList<BarEntry> getBarEntriesOne() {

@@ -142,5 +142,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    // delete note ==========================================
+
+    public Integer deleteNoteById(String id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete("NOTE_TABLE" , "ID=?" , new String[]{id});
+    }
+
 
 }

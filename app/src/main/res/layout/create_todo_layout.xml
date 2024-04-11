@@ -77,7 +77,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Status"
+        android:text="Create Date"
         android:layout_marginTop="15dp"
         android:textColor="#ffff"
         android:textSize="10sp"
@@ -86,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        app:placeholderText="Status"
+        app:placeholderText="Create Date"
         app:hintAnimationEnabled="false"
         >
         <com.google.android.material.textfield.TextInputEditText

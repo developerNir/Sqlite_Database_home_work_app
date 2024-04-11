@@ -21,6 +21,17 @@
             android:padding="15dp"
             >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todo Create"
+                android:textSize="18sp"
+                android:textColor="@color/primaryColor"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:id="@+id/NoteTitleOfPage"
+                />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,6 +85,38 @@
                     android:background="@drawable/out_line_shape"
                     android:text="Status" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/eDateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Crate Date Set"
+                    android:background="@drawable/white_out_line"
+
+                    android:layout_marginTop="10dp"
+                    />
+                <Button
+                    android:id="@+id/endDatePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End Date Set"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/white_out_line"
+
+                    android:layout_marginTop="10dp"
+                    />
+            </LinearLayout>
+
+<!--            <DatePicker-->
+<!--                android:id="@+id/datePicker1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:datePickerMode="calendar"/>-->
 
 
 

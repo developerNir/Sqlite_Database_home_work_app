@@ -14,12 +14,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="230dp"
         android:orientation="vertical"
         >
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="230dp"
         app:cardElevation="7dp"
         app:cardPreventCornerOverlap="true"
         app:cardMaxElevation="3dp"
@@ -146,12 +146,15 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+<!--            end to card view ====          -->
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 
+
+<!--        Cart view    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"

@@ -52,16 +52,33 @@
                 android:width="350dp"
                 android:textColor="#C5BFBF"
                 />
-            <TextView
-                android:id="@+id/startTimeTv"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Satday 30 December"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/primaryColor"
-                android:textStyle="italic"
-                android:textSize="9sp"
-                />
+                >
+
+                <TextView
+                    android:id="@+id/startTimeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Satday 30 December"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="9sp"
+                    android:textStyle="italic"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:id="@+id/deleteButtonNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/delete_ic"
+                    android:tintMode="multiply"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/primaryColor" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

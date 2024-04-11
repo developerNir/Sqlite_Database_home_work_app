@@ -1,6 +1,7 @@
 package com.example.improvement.View.fragmentView;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -25,12 +29,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 
 public class createTodo extends Fragment {
 
 
     String DropItem;
+    String CreateMonth;
+    String EndDate;
+    String CreateDay;
+    Button editTextDatePick, endDatePicker;
+
+    DatePickerDialog picker;
     private DatabaseHelper databaseHelper;
     FloatingActionButton cancel, create;
     TextInputEditText titleEd, DesEd;
@@ -55,6 +66,8 @@ public class createTodo extends Fragment {
         create = viewInflater.findViewById(R.id.createTodoButton);
         titleEd = viewInflater.findViewById(R.id.titleEd);
         DesEd = viewInflater.findViewById(R.id.desEd);
+        editTextDatePick = viewInflater.findViewById(R.id.eDateTv);
+        endDatePicker = viewInflater.findViewById(R.id.endDatePicker);
 
         constraintLayout = viewInflater.findViewById(R.id.constraintCreateTodo);
 
@@ -81,6 +94,99 @@ public class createTodo extends Fragment {
         });
 
 
+        // end date Picker Button onClick ==========================
+        endDatePicker.setOnClickListener(view -> {
+
+            String setEndDate = datePickerSetAndEnd(getContext());
+            endDatePicker.setText(setEndDate);
+
+
+        });
+
+        // date picker EditText =======================================
+        editTextDatePick.setOnClickListener(view3 -> {
+
+            final Calendar cldr = Calendar.getInstance();
+            int day = cldr.get(Calendar.DAY_OF_MONTH);
+            int month = cldr.get(Calendar.MONTH);
+            int year = cldr.get(Calendar.YEAR);
+            // date picker dialog
+            picker = new DatePickerDialog(context,
+                    new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                            editTextDatePick.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+
+
+                                CreateDay = dayOfMonth+"";
+
+                                if(monthOfYear == 0){
+                                    CreateMonth = "January "+dayOfMonth;
+
+                                    Toast.makeText(getContext(), "January", Toast.LENGTH_SHORT).show();
+                                }else if (monthOfYear == 1){
+                                    CreateMonth = "February";
+
+                                    Toast.makeText(getContext(), "February", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 2){
+                                    CreateMonth = "Merch";
+
+                                    Toast.makeText(getContext(), "Merch", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 3){
+                                    CreateMonth = "April";
+
+                                    Toast.makeText(getContext(), "April", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 4){
+                                    CreateMonth = "May";
+
+                                    Toast.makeText(getContext(), "May", Toast.LENGTH_SHORT).show();
+                                }else if (monthOfYear == 5){
+                                    CreateMonth = "June";
+
+                                    Toast.makeText(getContext(), "June", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 6){
+                                    CreateMonth = "July";
+
+                                    Toast.makeText(getContext(), "July", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 7){
+                                    CreateMonth = "August";
+
+                                    Toast.makeText(getContext(), "August", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 8){
+                                    CreateMonth = "September";
+
+                                    Toast.makeText(getContext(), "September", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 9){
+                                    CreateMonth = "October";
+
+                                    Toast.makeText(getContext(), "October", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 10){
+                                    CreateMonth = "November";
+
+                                    Toast.makeText(getContext(), "November", Toast.LENGTH_SHORT).show();
+                                }
+                                else if (monthOfYear == 11){
+                                    CreateMonth = "December";
+
+                                    Toast.makeText(getContext(), "December", Toast.LENGTH_SHORT).show();
+                                }
+
+                        }
+                    }, year, month, day);
+            picker.show();
+        });
+
+        // data picker End =============================================
+
 
 
 
@@ -97,7 +203,7 @@ public class createTodo extends Fragment {
             } else if (DropItem.length() == 0) {
                 Toast.makeText(context, "Please Status Select", Toast.LENGTH_SHORT).show();
             } else {
-                isInserted  = databaseHelper.insertData(titleValue, desValue, "Satday 02 Dec", "Fryday 22 April", DropItem);
+                isInserted  = databaseHelper.insertData(titleValue, desValue, "Satday 02 Dec", "Sunday "+CreateDay+" " +CreateMonth, DropItem);
 
                 if (isInserted){
                     Toast.makeText(getContext(), "Data Inserted...", Toast.LENGTH_SHORT).show();
@@ -138,4 +244,85 @@ public class createTodo extends Fragment {
 
         return viewInflater;
     }
+
+    private String datePickerSetAndEnd(Context context){
+
+        final Calendar cldr = Calendar.getInstance();
+        int day = cldr.get(Calendar.DAY_OF_MONTH);
+        int month = cldr.get(Calendar.MONTH);
+        int year = cldr.get(Calendar.YEAR);
+        // date picker dialog
+        picker = new DatePickerDialog(context,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        endDatePicker.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+
+
+                        if(monthOfYear == 0){
+                            EndDate = "January "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "January", Toast.LENGTH_SHORT).show();
+                        }else if (monthOfYear == 1){
+                            EndDate = "February "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "February", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 2){
+                            EndDate = "Merch "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "Merch", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 3){
+                            EndDate = "April "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "April", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 4){
+                            EndDate = "May "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "May", Toast.LENGTH_SHORT).show();
+                        }else if (monthOfYear == 5){
+                            EndDate = "June "+dayOfMonth;
+                            Toast.makeText(getContext(), "June", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 6){
+                            EndDate = "July "+dayOfMonth;
+                            Toast.makeText(getContext(), "July", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 7){
+                            EndDate = "August "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "August", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 8){
+                            EndDate = "September "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "September", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 9){
+                            EndDate = "October "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "October", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 10){
+                            EndDate = "November "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "November", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (monthOfYear == 11){
+                            EndDate = "December "+dayOfMonth;
+
+                            Toast.makeText(getContext(), "December", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }, year, month, day);
+        picker.show();
+        return EndDate;
+    }
+
+
+
 }

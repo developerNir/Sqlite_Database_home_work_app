@@ -16,10 +16,12 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,6 +47,7 @@ public class Note extends Fragment {
     HashMap<String,String>hashMap;
     AlertDialog alertDialog;
     ConstraintLayout frameLayout_Note;
+    Cursor cursor;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,7 +64,7 @@ public class Note extends Fragment {
 
         databaseHelper = new DatabaseHelper(getContext());
 
-        Cursor cursor = databaseHelper.getAllDataFromNote();
+        cursor = databaseHelper.getAllDataFromNote();
 //        StringBuffer buffer = new StringBuffer();
         if(cursor.getCount() == 0){
             textView.setVisibility(View.VISIBLE);
@@ -134,6 +137,13 @@ public class Note extends Fragment {
 
                             //  code is Reload Fragment ==========
 
+//                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                            ft.detach(Note.this).attach(Note.this).commit();
+//
+//
+//                            loadData(cursor);
+
+
                             Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
@@ -182,17 +192,36 @@ public class Note extends Fragment {
 
             TextView title, description, startTime;
             LinearLayout linearLayout;
+            ImageView imageViewDelete;
 
             title = view1.findViewById(R.id.titleNoteTv);
             description = view1.findViewById(R.id.descriptionNoteTv);
             startTime = view1.findViewById(R.id.startTimeTv);
             linearLayout = view1.findViewById(R.id.note_Item_Linear);
+            imageViewDelete = view1.findViewById(R.id.deleteButtonNote);
 
             hashMap = arrayList.get(i);
             String idNote = hashMap.get("id");
             String titleNote = hashMap.get("title");
             String DescriptionNote = hashMap.get("description");
             String startTimeNote = hashMap.get("startTime");
+
+            imageViewDelete.setOnClickListener(view2 -> {
+
+                int isDelete = databaseHelper.deleteNoteById(idNote);
+
+                if (isDelete >0 ){
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(Note.this).attach(Note.this).commit();
+
+                    Toast.makeText(getContext(), "Delete successful", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Data not Delete", Toast.LENGTH_SHORT).show();
+                }
+
+
+            });
+
 
             linearLayout.setOnClickListener(view2 -> {
 
