@@ -11,6 +11,11 @@
         android:layout_height="match_parent"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
         <HorizontalScrollView
             android:id="@+id/horizontal_Scroll"
@@ -61,6 +66,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="$ 393490853.34"
+                                android:id="@+id/mainCashTv"
                                 android:textColor="@color/white"
                                 android:textSize="25sp"
                                 android:textStyle="normal"
@@ -117,6 +123,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="$ 705.45"
+                                            android:id="@+id/totalIncomeTV"
                                             android:textColor="@color/white"
                                             android:textStyle="normal" />
 
@@ -145,7 +152,7 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Express"
+                                            android:text="Expenses"
                                             android:textColor="#A6A1A1"
                                             android:textSize="15sp"
                                             android:textStyle="bold" />
@@ -154,6 +161,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="$ 345.45"
+                                            android:id="@+id/TotalExpenseTV"
                                             android:textColor="@color/white"
                                             android:textStyle="normal" />
 
@@ -223,34 +231,67 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:textSize="15sp"
+                android:layout_marginEnd="5dp"
                 android:id="@+id/buttonTabIncome"
                 android:background="@drawable/white_out_line"
                 android:text="Income" />
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:id="@+id/buttonTabExpress"
                 android:textSize="15sp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/white_out_line"
-                android:text="Express"
+                android:text="Expenses"
 
                 />
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/walletList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ButtonLayout"
-            android:layout_marginTop="10dp"
-            />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/incomeLinearLayout"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/walletList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ButtonLayout"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/expenseViewList"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/ExpenseList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ButtonLayout"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -311,7 +352,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="express"
+            android:text="expense"
             android:id="@+id/expressButtonTextView"
             android:textStyle="bold"
             android:layout_marginEnd="25dp"

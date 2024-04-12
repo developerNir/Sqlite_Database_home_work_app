@@ -21,14 +21,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 5);
+        super(context, DATABASE_NAME, null, 3);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        sqLiteDatabase.execSQL("CREATE TABLE WALLET_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, whare TEXT, time TEXT, product TEXT, type TEXT )");
+        sqLiteDatabase.execSQL("CREATE TABLE expense (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
+        sqLiteDatabase.execSQL("CREATE TABLE income (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE NOTE_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, startTime TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "+ TODO_TABLE+" (id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT, description TEXT, endDate TEXT, createDate TEXT, status TEXT)");
 
@@ -38,7 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS WALLET_TABLE " );
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS expense " );
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS income " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS NOTE_TABLE " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TODO_TABLE );
         // Problem One that is my main problem ======================
@@ -171,18 +173,74 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // insert Data ---------------------todo-------------------
-    public Boolean insertWalletData(String title, String where, String time,String product, String type){
+    public Boolean insertIncomeData(String title, String where, String time,Double product){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
-        contentValues.put("whare", where);
+        contentValues.put("location", where);
         contentValues.put("time", time);
-        contentValues.put("product", product);
-        contentValues.put("type", type);
+        contentValues.put("amount", product);
 
-        long var = db.insert("WALLET_TABLE", null, contentValues );
+
+        long var = db.insert("income", null, contentValues );
+
+
+        if(var == -1){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    // Get all data form Wallet =====================================
+
+    public Cursor getAllDataIcome() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor3 = db.rawQuery("SELECT * FROM income" , null);
+        return cursor3;
+    }
+
+
+    // calculate Total expense ================================
+
+    public Double calculateTotalInCome(){
+
+        double totalIncome = 0;
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select * from income", null);
+
+        if (cursor!=null && cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                double income = cursor.getDouble(4);
+                totalIncome = totalIncome+income;
+            }
+        }
+
+        return totalIncome;
+
+
+    }
+
+
+
+    // add data expense Table ================== expense =====================================
+
+    public Boolean insertExpenseData(String title, String where, String time,Double product){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("title", title);
+        contentValues.put("location", where);
+        contentValues.put("time", time);
+        contentValues.put("amount", product);
+
+
+        long var = db.insert("expense", null, contentValues );
 
 
         if(var == -1){
@@ -194,11 +252,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public Cursor getAllDataExpense() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor4 = db.rawQuery("SELECT * FROM expense" , null);
+        return cursor4;
+    }
 
 
+    public Double calculateTotalExpense(){
+
+        double totalIncome = 0;
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("select * from expense", null);
+
+        if (cursor!=null && cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                double income = cursor.getDouble(4);
+                totalIncome = totalIncome+income;
+            }
+        }
+
+        return totalIncome;
 
 
-
+    }
 
 
 }

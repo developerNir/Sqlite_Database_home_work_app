@@ -146,6 +146,7 @@ public class Note extends Fragment {
 
                             Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
                         }else {
+                            alertDialog.dismiss();
                             Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
                         }
 

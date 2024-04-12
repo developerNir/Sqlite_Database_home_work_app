@@ -2,6 +2,7 @@ package com.example.improvement.View.fragmentView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,7 +12,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +33,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Wallet extends Fragment {
 
@@ -49,6 +55,7 @@ public class Wallet extends Fragment {
     ExtendedFloatingActionButton addManyIncome ,incomButton, expressButton;
     TextView incomButtonTopTexView, expressButtonTextView;
     Boolean isActionsView;
+    TextView mainCashTv, TotalExpenseTV, totalIncomeTV;
 
 
     // Alert dialog =========
@@ -56,6 +63,11 @@ public class Wallet extends Fragment {
 
     // Tab Button ==============
     Button ButtonTabIncome,ButtonTabExpress;
+    ListView listViewWallet, ExpenseList;
+    LinearLayout expenseViewListLinearLayout, incomeLinearLayout;
+    ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
+    HashMap<String,String> hashMap;
+
 
 
 
@@ -72,11 +84,25 @@ public class Wallet extends Fragment {
         addManyIncome = myView.findViewById(R.id.addManyIncome);
         expressButton = myView.findViewById(R.id.expressButton);
         incomButton = myView.findViewById(R.id.incomButton);
+        // floating Action Button ======================
         incomButtonTopTexView = myView.findViewById(R.id.incomButtonTopTexView);
         expressButtonTextView = myView.findViewById(R.id.expressButtonTextView);
 
+        // Total many ====================
+        mainCashTv = myView.findViewById(R.id.mainCashTv);
+        totalIncomeTV = myView.findViewById(R.id.totalIncomeTV);
+        TotalExpenseTV = myView.findViewById(R.id.TotalExpenseTV);
+
+        // List View and Button ========================
         ButtonTabIncome = myView.findViewById(R.id.buttonTabIncome);
         ButtonTabExpress = myView.findViewById(R.id.buttonTabExpress);
+        // List View ==================================
+        listViewWallet = myView.findViewById(R.id.walletList);
+        ExpenseList = myView.findViewById(R.id.ExpenseList);
+
+        // List View Gone and Visible ================================
+        expenseViewListLinearLayout = myView.findViewById(R.id.expenseViewList);
+        incomeLinearLayout = myView.findViewById(R.id.incomeLinearLayout);
 
         incomButton.setVisibility(View.GONE);
         expressButton.setVisibility(View.GONE);
@@ -86,6 +112,7 @@ public class Wallet extends Fragment {
         isActionsView = false;
 
         addManyIncome.setExtended(false);
+        incomeLinearLayout.setVisibility(View.VISIBLE);
 
         addManyIncome.setOnClickListener(view -> {
             if (!isActionsView){
@@ -112,15 +139,25 @@ public class Wallet extends Fragment {
         });
 
 
-        // Tab Button Work ======================================
+        // Tab Button Work ============= list view expense and income =========================
+        ButtonTabIncome.setTextColor(getResources().getColor(R.color.ColorActive));
+        ButtonTabExpress.setTextColor(getResources().getColor(R.color.white));
 
         ButtonTabIncome.setOnClickListener(view -> {
+
+
+
+
             ButtonTabIncome.setTextColor(getResources().getColor(R.color.ColorActive));
             ButtonTabExpress.setTextColor(getResources().getColor(R.color.white));
 
         });
 
         ButtonTabExpress.setOnClickListener(view -> {
+
+
+
+
             ButtonTabExpress.setTextColor(getResources().getColor(R.color.ColorActive));
             ButtonTabIncome.setTextColor(getResources().getColor(R.color.white));
         });
@@ -135,16 +172,6 @@ public class Wallet extends Fragment {
         incomButton.setOnClickListener(view -> {
 
 
-
-//            Insert data form Wallet table ===================================
-//            Boolean isCreated = databaseHelper.insertWalletData("Buy a phone", "Boura super market", "sunday 30 April", "Mobile Phone", "express");
-//
-//            if (isCreated){
-//                Toast.makeText(getContext(), "Data is inserted ...", Toast.LENGTH_SHORT).show();
-//            }else {
-//                Toast.makeText(getContext(), "Data is not insert ...", Toast.LENGTH_SHORT).show();
-//
-//            }
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -186,20 +213,21 @@ public class Wallet extends Fragment {
                         String title = titleEd.getText().toString();
                         String des = where.getText().toString();
                         String status = product.getText().toString();
+                        Double priceDouble = Double.parseDouble(status);
 
                         if (title.length()==0){
                             titleEd.setError("Value is Emtiy");
                         } else if (des.length() == 0) {
                             where.setError("Value is Emtiy");
 
-                        } else if (status.length() == 0) {
+                        } else if (status.length() == 0 ) {
                             product.setError("Value is Emtiy");
 
                         }else {
 
                             databaseHelper = new DatabaseHelper(getContext());
 
-                            Boolean isCheck = databaseHelper.insertWalletData(title, des, "Monday 02 April", status, "Income");
+                            Boolean isCheck = databaseHelper.insertIncomeData(title, des, "Monday 02 April", priceDouble );
                             if (isCheck){
                                 alertDialog.dismiss();
 
@@ -230,9 +258,16 @@ public class Wallet extends Fragment {
             addManyIncome.setExtended(false);
 
 
+        }); // income add end ========================================
+
+
+        // add expense =============================================
+        expressButton.setOnClickListener(view -> {
+
+            createWallet(true);
+
+
         });
-
-
 
 
 
@@ -342,11 +377,13 @@ public class Wallet extends Fragment {
 
 
 
+//               total Text View Add this Propartiy ==================================
+                Cursor cursor = databaseHelper.getAllDataIcome();
+                loadData(cursor);
 
-
-
-
-
+                totalIncomeTV.setText("$ "+databaseHelper.calculateTotalInCome());
+                mainCashTv.setText("$ "+(databaseHelper.calculateTotalInCome()-databaseHelper.calculateTotalExpense()));
+                TotalExpenseTV.setText("$ "+databaseHelper.calculateTotalExpense());
 
 
 
@@ -371,6 +408,235 @@ public class Wallet extends Fragment {
 
 
 
+    public class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return arrayList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @SuppressLint("MissingInflatedId")
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view1 = layoutInflater.inflate(R.layout.income_express_list, null ,false);
+
+            TextView titleTv, whereTv, priceTv, timeTv;
+            ImageButton deleteImageButton;
+
+            titleTv = view1.findViewById(R.id.titleTv);
+            whereTv = view1.findViewById(R.id.whereTv);
+            priceTv = view1.findViewById(R.id.productTv);
+            timeTv = view1.findViewById(R.id.TimeTv);
+//            deleteImageButton = view1.findViewById(R.id.deleteButtonImage);
+
+            // Income =======================================
+            hashMap = arrayList.get(i);
+            String idWallet = hashMap.get("id");
+            String title = hashMap.get("title");
+            String whereWallet = hashMap.get("whare");
+            String timeWallet = hashMap.get("time");
+            String productPrice = hashMap.get("product");
+
+            // expense list =================================
+//            hashMap = arrayList.get(i);
+//            String idExpense = hashMap.get("idEx");
+//            String titleExpense = hashMap.get("titleEx");
+//            String whereExpense = hashMap.get("whareEx");
+//            String timeExpenseValue = hashMap.get("timeEx");
+//            String amount = hashMap.get("productEx");
+
+
+
+            timeTv.setText(timeWallet);
+            whereTv.setText(whereWallet);
+            priceTv.setText("$ "+productPrice);
+            titleTv.setText(title);
+
+//            ButtonTabIncome.setOnClickListener(view2 -> {
+//                timeTv.setText(timeWallet);
+//                whereTv.setText(whereWallet);
+//                priceTv.setText("$ "+productPrice);
+//                titleTv.setText(title);
+//
+//            });
+//            ButtonTabExpress.setOnClickListener(view2 -> {
+//                Cursor cursor = databaseHelper.getAllDataExpense();
+//                loadExpenseData(cursor);
+//                timeTv.setText(timeExpenseValue);
+//                whereTv.setText(whereExpense);
+//                priceTv.setText("$ "+amount);
+//                titleTv.setText(titleExpense);
+//
+//            });
+
+
+//            deleteImageButton.setOnClickListener(view2 -> {
+//                Integer var = databaseHelper.deleteTodoById(idTodo);
+//
+//
+//                if(var > 0){
+//
+//
+//                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+
+
+            return view1;
+        }
+    }
+
+    // expense Adapter ===============================================
+
+
+//    public class MyExAdapter extends BaseAdapter {
+//
+//        @Override
+//        public int getCount() {
+//            return arrayList.size();
+//        }
+//
+//        @Override
+//        public Object getItem(int i) {
+//            return null;
+//        }
+//
+//        @Override
+//        public long getItemId(int i) {
+//            return 0;
+//        }
+//
+//        @SuppressLint("MissingInflatedId")
+//        @Override
+//        public View getView(int i, View view, ViewGroup viewGroup) {
+//            LayoutInflater layoutInflater = getLayoutInflater();
+//            View view1 = layoutInflater.inflate(R.layout.income_express_list, null ,false);
+//
+//            TextView titleTv, whereTv, priceTv, timeTv;
+//
+//            titleTv = view1.findViewById(R.id.titleTv);
+//            whereTv = view1.findViewById(R.id.whereTv);
+//            priceTv = view1.findViewById(R.id.productTv);
+//            timeTv = view1.findViewById(R.id.TimeTv);
+////            deleteImageButton = view1.findViewById(R.id.deleteButtonImage);
+//
+//
+//            // expense list =================================
+//            hashMap = arrayList.get(i);
+//            String idExpense = hashMap.get("idEx");
+//            String titleExpense = hashMap.get("titleEx");
+//            String whereExpense = hashMap.get("whareEx");
+//            String timeExpenseValue = hashMap.get("timeEx");
+//            String amount = hashMap.get("productEx");
+//
+//
+//
+//
+//
+//                Cursor cursor = databaseHelper.getAllDataExpense();
+//                loadExpenseData(cursor);
+//                timeTv.setText(timeExpenseValue);
+//                whereTv.setText(whereExpense);
+//                priceTv.setText("$ "+amount);
+//                titleTv.setText(titleExpense);
+//
+//
+////            deleteImageButton.setOnClickListener(view2 -> {
+////                Integer var = databaseHelper.deleteTodoById(idTodo);
+////
+////
+////                if(var > 0){
+////
+////
+////                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+////                }else {
+////                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
+////                }
+////            });
+//
+//
+//
+//            return view1;
+//        }
+//    }
+
+
+
+
+
+    public void loadData(Cursor cursor){
+
+        if (cursor!=null && cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                int id = cursor.getInt(0);
+                String title = cursor.getString(1);
+                String description = cursor.getString(2);
+                String endDate = cursor.getString(3);
+                String productPrice = cursor.getString(4);
+
+                hashMap = new HashMap<>();
+                hashMap.put("id", ""+id);
+                hashMap.put("title", title);
+                hashMap.put("whare", description);
+                hashMap.put("time", endDate);
+                hashMap.put("product", productPrice);
+
+
+                arrayList.add(hashMap);
+
+
+            }
+
+            listViewWallet.setAdapter(new MyAdapter());
+
+
+        }
+
+    }
+
+//    public void loadExpenseData(Cursor cursor){
+//
+//        if (cursor!=null && cursor.getCount()>0){
+//            while (cursor.moveToNext()){
+//                int id = cursor.getInt(0);
+//                String title = cursor.getString(1);
+//                String description = cursor.getString(2);
+//                String endDate = cursor.getString(3);
+//                String productPrice = cursor.getString(4);
+//
+//                hashMap = new HashMap<>();
+//                hashMap.put("idEx", ""+id);
+//                hashMap.put("titleEx", title);
+//                hashMap.put("whareEx", description);
+//                hashMap.put("timeEx", endDate);
+//                hashMap.put("productEx", productPrice);
+//
+//
+//                arrayList.add(hashMap);
+//
+//
+//            }
+//
+//            ExpenseList.setAdapter(new MyExAdapter());
+//
+//
+//        }
+
+//    }
 
 
 
@@ -432,4 +698,107 @@ public class Wallet extends Fragment {
         }
 
 
+        public void createWallet(Boolean ExpenseIs){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+
+            builder.setTitle("Create");
+            View viewDialog = getLayoutInflater().inflate(R.layout.income_create, null);
+
+
+            builder.setView(viewDialog);
+            alertDialog = builder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            TextInputEditText titleEd,where,product;
+            titleEd = (TextInputEditText) viewDialog.findViewById(R.id.titleEd);
+            where = (TextInputEditText) viewDialog.findViewById(R.id.whereEd);
+            product = (TextInputEditText) viewDialog.findViewById(R.id.productEd);
+
+            Button dialogButtonCancle = (Button) viewDialog.findViewById(R.id.btn_dialog_cancle);
+            dialogButtonCancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            // Ok button ==================================
+            Button dialogButtonOk = (Button) viewDialog.findViewById(R.id.btn_dialog);
+            dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public int hashCode() {
+                    return super.hashCode();
+                }
+
+                @Override
+                public void onClick(View v) {
+
+                    String title = titleEd.getText().toString();
+                    String des = where.getText().toString();
+                    String status = product.getText().toString();
+                    Double priceDouble = Double.parseDouble(status);
+
+                    if (title.length()==0){
+                        titleEd.setError("Value is Emtiy");
+                    } else if (des.length() == 0) {
+                        where.setError("Value is Emtiy");
+
+                    } else if (status.length() == 0 ) {
+                        product.setError("Value is Emtiy");
+
+                    }else {
+
+                        if (ExpenseIs) {
+                            databaseHelper = new DatabaseHelper(getContext());
+
+                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, "Monday 02 April", priceDouble);
+                            if (isCheck) {
+                                alertDialog.dismiss();
+
+
+                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            databaseHelper = new DatabaseHelper(getContext());
+
+                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, "Monday 02 April", priceDouble);
+                            if (isCheck) {
+                                alertDialog.dismiss();
+
+
+                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+
+                    }
+
+                }
+            });
+
+            alertDialog.show();
+
+
+
+            incomButton.hide();
+            expressButton.hide();
+            expressButtonTextView.setVisibility(View.GONE);
+            incomButtonTopTexView.setVisibility(View.GONE);
+
+
+            isActionsView = false;
+
+            addManyIncome.setExtended(false);
+
+
+
+        }
 }
