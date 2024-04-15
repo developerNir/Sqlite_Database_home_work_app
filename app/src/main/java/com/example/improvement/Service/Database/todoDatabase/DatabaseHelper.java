@@ -203,6 +203,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor3;
     }
 
+    // Delete wallet income item by id =================================
+
+    public Integer deleteIncomeById(String id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete("income" , "ID=?" , new String[]{id});
+    }
 
     // calculate Total expense ================================
 
@@ -276,6 +284,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return totalIncome;
 
 
+    }
+
+    // delete expense form Database by id =======================
+
+    public Integer deleteExpenseById(String id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete("expense" , "ID=?" , new String[]{id});
     }
 
 

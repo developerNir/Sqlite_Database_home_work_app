@@ -8,13 +8,17 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -67,6 +71,7 @@ public class Wallet extends Fragment {
     LinearLayout expenseViewListLinearLayout, incomeLinearLayout;
     ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
     HashMap<String,String> hashMap;
+    FrameLayout frameLayout;
 
 
 
@@ -80,7 +85,7 @@ public class Wallet extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_wallet, container, false);
 
 
-
+        frameLayout = myView.findViewById(R.id.myFrameLayout);
         addManyIncome = myView.findViewById(R.id.addManyIncome);
         expressButton = myView.findViewById(R.id.expressButton);
         incomButton = myView.findViewById(R.id.incomButton);
@@ -98,10 +103,8 @@ public class Wallet extends Fragment {
         ButtonTabExpress = myView.findViewById(R.id.buttonTabExpress);
         // List View ==================================
         listViewWallet = myView.findViewById(R.id.walletList);
-        ExpenseList = myView.findViewById(R.id.ExpenseList);
 
         // List View Gone and Visible ================================
-        expenseViewListLinearLayout = myView.findViewById(R.id.expenseViewList);
         incomeLinearLayout = myView.findViewById(R.id.incomeLinearLayout);
 
         incomButton.setVisibility(View.GONE);
@@ -147,6 +150,10 @@ public class Wallet extends Fragment {
 
 
 
+            frameLayout.setVisibility(View.GONE);
+            incomeLinearLayout.setVisibility(View.VISIBLE);
+
+
 
             ButtonTabIncome.setTextColor(getResources().getColor(R.color.ColorActive));
             ButtonTabExpress.setTextColor(getResources().getColor(R.color.white));
@@ -155,7 +162,14 @@ public class Wallet extends Fragment {
 
         ButtonTabExpress.setOnClickListener(view -> {
 
+            incomeLinearLayout.setVisibility(View.GONE);
+            frameLayout.setVisibility(View.VISIBLE);
 
+
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.myFrameLayout, new ExpenseList());
+                fragmentTransaction.commit();
 
 
             ButtonTabExpress.setTextColor(getResources().getColor(R.color.ColorActive));
@@ -432,13 +446,13 @@ public class Wallet extends Fragment {
             View view1 = layoutInflater.inflate(R.layout.income_express_list, null ,false);
 
             TextView titleTv, whereTv, priceTv, timeTv;
-            ImageButton deleteImageButton;
+            ImageView deleteImageButton;
 
             titleTv = view1.findViewById(R.id.titleTv);
             whereTv = view1.findViewById(R.id.whereTv);
             priceTv = view1.findViewById(R.id.productTv);
             timeTv = view1.findViewById(R.id.TimeTv);
-//            deleteImageButton = view1.findViewById(R.id.deleteButtonImage);
+            deleteImageButton = view1.findViewById(R.id.deleteWallet);
 
             // Income =======================================
             hashMap = arrayList.get(i);
@@ -448,13 +462,6 @@ public class Wallet extends Fragment {
             String timeWallet = hashMap.get("time");
             String productPrice = hashMap.get("product");
 
-            // expense list =================================
-//            hashMap = arrayList.get(i);
-//            String idExpense = hashMap.get("idEx");
-//            String titleExpense = hashMap.get("titleEx");
-//            String whereExpense = hashMap.get("whareEx");
-//            String timeExpenseValue = hashMap.get("timeEx");
-//            String amount = hashMap.get("productEx");
 
 
 
@@ -463,36 +470,20 @@ public class Wallet extends Fragment {
             priceTv.setText("$ "+productPrice);
             titleTv.setText(title);
 
-//            ButtonTabIncome.setOnClickListener(view2 -> {
-//                timeTv.setText(timeWallet);
-//                whereTv.setText(whereWallet);
-//                priceTv.setText("$ "+productPrice);
-//                titleTv.setText(title);
-//
-//            });
-//            ButtonTabExpress.setOnClickListener(view2 -> {
-//                Cursor cursor = databaseHelper.getAllDataExpense();
-//                loadExpenseData(cursor);
-//                timeTv.setText(timeExpenseValue);
-//                whereTv.setText(whereExpense);
-//                priceTv.setText("$ "+amount);
-//                titleTv.setText(titleExpense);
-//
-//            });
+            deleteImageButton.setOnClickListener(view2 -> {
+
+                int var = databaseHelper.deleteIncomeById(idWallet);
+
+                if(var > 0){
 
 
-//            deleteImageButton.setOnClickListener(view2 -> {
-//                Integer var = databaseHelper.deleteTodoById(idTodo);
-//
-//
-//                if(var > 0){
-//
-//
-//                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
-//                }
-//            });
+                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
 
 
 
@@ -500,79 +491,8 @@ public class Wallet extends Fragment {
         }
     }
 
-    // expense Adapter ===============================================
 
 
-//    public class MyExAdapter extends BaseAdapter {
-//
-//        @Override
-//        public int getCount() {
-//            return arrayList.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int i) {
-//            return null;
-//        }
-//
-//        @Override
-//        public long getItemId(int i) {
-//            return 0;
-//        }
-//
-//        @SuppressLint("MissingInflatedId")
-//        @Override
-//        public View getView(int i, View view, ViewGroup viewGroup) {
-//            LayoutInflater layoutInflater = getLayoutInflater();
-//            View view1 = layoutInflater.inflate(R.layout.income_express_list, null ,false);
-//
-//            TextView titleTv, whereTv, priceTv, timeTv;
-//
-//            titleTv = view1.findViewById(R.id.titleTv);
-//            whereTv = view1.findViewById(R.id.whereTv);
-//            priceTv = view1.findViewById(R.id.productTv);
-//            timeTv = view1.findViewById(R.id.TimeTv);
-////            deleteImageButton = view1.findViewById(R.id.deleteButtonImage);
-//
-//
-//            // expense list =================================
-//            hashMap = arrayList.get(i);
-//            String idExpense = hashMap.get("idEx");
-//            String titleExpense = hashMap.get("titleEx");
-//            String whereExpense = hashMap.get("whareEx");
-//            String timeExpenseValue = hashMap.get("timeEx");
-//            String amount = hashMap.get("productEx");
-//
-//
-//
-//
-//
-//                Cursor cursor = databaseHelper.getAllDataExpense();
-//                loadExpenseData(cursor);
-//                timeTv.setText(timeExpenseValue);
-//                whereTv.setText(whereExpense);
-//                priceTv.setText("$ "+amount);
-//                titleTv.setText(titleExpense);
-//
-//
-////            deleteImageButton.setOnClickListener(view2 -> {
-////                Integer var = databaseHelper.deleteTodoById(idTodo);
-////
-////
-////                if(var > 0){
-////
-////
-////                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
-////                }else {
-////                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
-////                }
-////            });
-//
-//
-//
-//            return view1;
-//        }
-//    }
 
 
 
@@ -608,33 +528,7 @@ public class Wallet extends Fragment {
 
     }
 
-//    public void loadExpenseData(Cursor cursor){
-//
-//        if (cursor!=null && cursor.getCount()>0){
-//            while (cursor.moveToNext()){
-//                int id = cursor.getInt(0);
-//                String title = cursor.getString(1);
-//                String description = cursor.getString(2);
-//                String endDate = cursor.getString(3);
-//                String productPrice = cursor.getString(4);
-//
-//                hashMap = new HashMap<>();
-//                hashMap.put("idEx", ""+id);
-//                hashMap.put("titleEx", title);
-//                hashMap.put("whareEx", description);
-//                hashMap.put("timeEx", endDate);
-//                hashMap.put("productEx", productPrice);
-//
-//
-//                arrayList.add(hashMap);
-//
-//
-//            }
-//
-//            ExpenseList.setAdapter(new MyExAdapter());
-//
-//
-//        }
+
 
 //    }
 

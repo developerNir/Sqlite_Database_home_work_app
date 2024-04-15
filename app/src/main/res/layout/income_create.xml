@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="What is the Product"
+            android:hint="Amount/Product Price"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
