@@ -50,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:contentDescription="@string/app_name"
             android:id="@+id/addFloatingActionButton"
             android:tintMode="@color/white"
             android:backgroundTint="#9C27B0"

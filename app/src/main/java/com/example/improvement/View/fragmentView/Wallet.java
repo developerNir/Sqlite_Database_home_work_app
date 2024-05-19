@@ -662,7 +662,7 @@ public class Wallet extends Fragment {
                             LocalDateTime myDateObj = null;
                             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                                 myDateObj = LocalDateTime.now();
-                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
+                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
                                 formattedDate = myDateObj.format(myFormatObj);
                             }
 
@@ -680,7 +680,7 @@ public class Wallet extends Fragment {
                         }else {
                             databaseHelper = new DatabaseHelper(getContext());
 
-                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, "Monday 02 April", priceDouble);
+                            Boolean isCheck = databaseHelper.insertExpenseData(title, des,formattedDate, priceDouble);
                             if (isCheck) {
                                 alertDialog.dismiss();
 

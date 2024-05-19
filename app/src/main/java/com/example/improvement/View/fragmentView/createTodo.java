@@ -1,9 +1,11 @@
 package com.example.improvement.View.fragmentView;
 
+
+
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,8 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+
 import android.widget.Toast;
 
 import com.example.improvement.R;
@@ -28,9 +29,10 @@ import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Calendar;
 
 
@@ -41,7 +43,7 @@ public class createTodo extends Fragment {
     String CreateMonth;
     String EndDate;
     String CreateDay;
-    Button editTextDatePick, endDatePicker;
+    Button editTextDatePick;
 
     DatePickerDialog picker;
     private DatabaseHelper databaseHelper;
@@ -52,9 +54,8 @@ public class createTodo extends Fragment {
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> arrayAdapter;
-    String[] item ={"Upcoming", "Pandding", "Complete","Jest now" };
 
-    String formatData, EeeData;
+    String formatData, EeeData, dayName;
 
 
     @SuppressLint("MissingInflatedId")
@@ -70,7 +71,6 @@ public class createTodo extends Fragment {
         titleEd = viewInflater.findViewById(R.id.titleEd);
         DesEd = viewInflater.findViewById(R.id.desEd);
         editTextDatePick = viewInflater.findViewById(R.id.eDateTv);
-        endDatePicker = viewInflater.findViewById(R.id.endDatePicker);
 
         constraintLayout = viewInflater.findViewById(R.id.constraintCreateTodo);
 
@@ -97,14 +97,7 @@ public class createTodo extends Fragment {
         });
 
 
-        // end date Picker Button onClick ==========================
-        endDatePicker.setOnClickListener(view -> {
 
-            String setEndDate = datePickerSetAndEnd(getContext());
-            endDatePicker.setText(setEndDate);
-
-
-        });
 
         // date picker EditText =======================================
         editTextDatePick.setOnClickListener(view3 -> {
@@ -119,6 +112,16 @@ public class createTodo extends Fragment {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             editTextDatePick.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(year, monthOfYear, dayOfMonth);
+
+                            // Format the date using SimpleDateFormat
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("E");
+                            dayName = dateFormat.format(calendar.getTime());
+
+
 
 
 
@@ -198,7 +201,6 @@ public class createTodo extends Fragment {
 
             String titleValue = titleEd.getText().toString();
             String desValue = DesEd.getText().toString();
-            String endData = endDatePicker.getText().toString();
 
             if (titleValue.length()==0){
                 titleEd.setError("Value is Emtiy");
@@ -214,7 +216,7 @@ public class createTodo extends Fragment {
                 }
 
                 LocalDateTime myDateObj = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     myDateObj = LocalDateTime.now();
                     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("E dd-MM-yyyy  HH:mm:ss");
                     DateTimeFormatter Eee = DateTimeFormatter.ofPattern("E");
@@ -225,7 +227,7 @@ public class createTodo extends Fragment {
 
 
                 // data insert ===================================
-                isInserted  = databaseHelper.insertData(titleValue, desValue, EeeData+""+CreateDay+" "+CreateMonth, formatData, DropItem);
+                isInserted  = databaseHelper.insertData(titleValue, desValue, dayName+""+CreateDay+" "+CreateMonth, formatData, DropItem);
 
                 if (isInserted){
                     Toast.makeText(getContext(), "Data Inserted...", Toast.LENGTH_SHORT).show();
@@ -273,12 +275,14 @@ public class createTodo extends Fragment {
         int day = cldr.get(Calendar.DAY_OF_MONTH);
         int month = cldr.get(Calendar.MONTH);
         int year = cldr.get(Calendar.YEAR);
+
+
+
         // date picker dialog
         picker = new DatePickerDialog(context,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        endDatePicker.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
 
 

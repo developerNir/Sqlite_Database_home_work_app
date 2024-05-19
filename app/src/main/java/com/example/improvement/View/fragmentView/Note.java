@@ -99,8 +99,6 @@ public class Note extends Fragment {
             TextInputEditText titleEd,desEd,statusEd;
             titleEd = (TextInputEditText) viewDialog.findViewById(R.id.dialog_title);
             desEd = (TextInputEditText) viewDialog.findViewById(R.id.edit_text);
-            statusEd = (TextInputEditText) viewDialog.findViewById(R.id.statusTextEd);
-
             Button dialogButtonCancle = (Button) viewDialog.findViewById(R.id.btn_dialog_cancle);
             dialogButtonCancle.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -122,22 +120,19 @@ public class Note extends Fragment {
 
                     String title = titleEd.getText().toString();
                     String des = desEd.getText().toString();
-                    String status = statusEd.getText().toString();
+
 
                     if (title.length()==0){
                         titleEd.setError("Value is Emtiy");
                     } else if (des.length() == 0) {
                         desEd.setError("Value is Emtiy");
 
-                    } else if (status.length() == 0) {
-                        statusEd.setError("Value is Emtiy");
-
                     }else {
 
                         LocalDateTime myDateObj = null;
                         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                             myDateObj = LocalDateTime.now();
-                            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
+                            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
                             formattedDate = myDateObj.format(myFormatObj);
                         }
 
