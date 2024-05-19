@@ -1,12 +1,18 @@
 package com.example.improvement.View.activityView;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
+import android.app.AlertDialog;
+import androidx.activity.OnBackPressedCallback;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -81,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // On back pass action =============================== function
+        setUpOnBackPressed();
 
 
 
@@ -95,6 +103,41 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+    // On back pass action ===============================
+
+
+
+    public void setUpOnBackPressed(){
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Confirm Exit")
+                        .setMessage("Are you sure you want to exit?")
+                        .setIcon(R.drawable.exit_icon)
+                        .setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // No click and Worked this Code ===============
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .setPositiveButton("Yes, Exit", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Yes click and Worked this Code ===============
+                                dialogInterface.dismiss();
+                                finishAndRemoveTask();
+                            }
+                        })
+                        .show();
+
+
+            }
+        });
+    }
+    // OnBack passed end ===============================
 
 
 
