@@ -28,6 +28,8 @@ import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -52,6 +54,7 @@ public class createTodo extends Fragment {
     ArrayAdapter<String> arrayAdapter;
     String[] item ={"Upcoming", "Pandding", "Complete","Jest now" };
 
+    String formatData, EeeData;
 
 
     @SuppressLint("MissingInflatedId")
@@ -195,6 +198,7 @@ public class createTodo extends Fragment {
 
             String titleValue = titleEd.getText().toString();
             String desValue = DesEd.getText().toString();
+            String endData = endDatePicker.getText().toString();
 
             if (titleValue.length()==0){
                 titleEd.setError("Value is Emtiy");
@@ -203,7 +207,25 @@ public class createTodo extends Fragment {
             } else if (DropItem.length() == 0) {
                 Toast.makeText(context, "Please Status Select", Toast.LENGTH_SHORT).show();
             } else {
-                isInserted  = databaseHelper.insertData(titleValue, desValue, "Satday 02 Dec", "Sunday "+CreateDay+" " +CreateMonth, DropItem);
+
+
+                if (CreateDay.length() == 1){
+                    CreateDay = "0"+CreateDay;
+                }
+
+                LocalDateTime myDateObj = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    myDateObj = LocalDateTime.now();
+                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("E dd-MM-yyyy  HH:mm:ss");
+                    DateTimeFormatter Eee = DateTimeFormatter.ofPattern("E");
+                    formatData = myDateObj.format(myFormatObj);
+                    EeeData = myDateObj.format(Eee);
+                }
+
+
+
+                // data insert ===================================
+                isInserted  = databaseHelper.insertData(titleValue, desValue, EeeData+""+CreateDay+" "+CreateMonth, formatData, DropItem);
 
                 if (isInserted){
                     Toast.makeText(getContext(), "Data Inserted...", Toast.LENGTH_SHORT).show();

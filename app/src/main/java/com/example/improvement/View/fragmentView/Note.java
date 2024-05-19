@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.SurfaceControl;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -30,9 +31,12 @@ import android.widget.Toast;
 import com.example.improvement.R;
 
 import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
+import com.example.improvement.View.activityView.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,6 +52,7 @@ public class Note extends Fragment {
     AlertDialog alertDialog;
     ConstraintLayout frameLayout_Note;
     Cursor cursor;
+    String formattedDate;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -129,9 +134,16 @@ public class Note extends Fragment {
 
                     }else {
 
+                        LocalDateTime myDateObj = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            myDateObj = LocalDateTime.now();
+                            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
+                            formattedDate = myDateObj.format(myFormatObj);
+                        }
+
                         databaseHelper = new DatabaseHelper(getContext());
 
-                        Boolean isCheck = databaseHelper.noteInsert(title, des, status);
+                        Boolean isCheck = databaseHelper.noteInsert(title, des, formattedDate);
                         if (isCheck){
                             alertDialog.dismiss();
 
@@ -141,7 +153,13 @@ public class Note extends Fragment {
 //                            ft.detach(Note.this).attach(Note.this).commit();
 //
 //
+
 //                            loadData(cursor);
+
+
+
+
+
 
 
                             Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
@@ -166,6 +184,24 @@ public class Note extends Fragment {
         return myView;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getContext(), "On Resume", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Toast.makeText(getContext(), "On start", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     // List and Adapter ==========================note ========================
     public class MyAdapter extends BaseAdapter {
@@ -230,7 +266,6 @@ public class Note extends Fragment {
 
                 Note_Update.titleText = titleNote;
                 Note_Update.des = DescriptionNote;
-                Note_Update.status = startTimeNote;
                 Note_Update.id = idNote;
 
                 FragmentManager fragmentManager = getChildFragmentManager();

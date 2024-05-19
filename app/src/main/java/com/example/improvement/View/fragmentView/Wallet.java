@@ -36,6 +36,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -74,6 +76,7 @@ public class Wallet extends Fragment {
     FrameLayout frameLayout;
 
 
+    String formattedDate;
 
 
     private DatabaseHelper databaseHelper;
@@ -239,9 +242,16 @@ public class Wallet extends Fragment {
 
                         }else {
 
+                            LocalDateTime myDateObj = null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                myDateObj = LocalDateTime.now();
+                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
+                                formattedDate = myDateObj.format(myFormatObj);
+                            }
+
                             databaseHelper = new DatabaseHelper(getContext());
 
-                            Boolean isCheck = databaseHelper.insertIncomeData(title, des, "Monday 02 April", priceDouble );
+                            Boolean isCheck = databaseHelper.insertIncomeData(title, des, formattedDate, priceDouble );
                             if (isCheck){
                                 alertDialog.dismiss();
 
@@ -648,7 +658,17 @@ public class Wallet extends Fragment {
                         if (ExpenseIs) {
                             databaseHelper = new DatabaseHelper(getContext());
 
-                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, "Monday 02 April", priceDouble);
+
+                            LocalDateTime myDateObj = null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                myDateObj = LocalDateTime.now();
+                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
+                                formattedDate = myDateObj.format(myFormatObj);
+                            }
+
+
+
+                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, formattedDate, priceDouble);
                             if (isCheck) {
                                 alertDialog.dismiss();
 

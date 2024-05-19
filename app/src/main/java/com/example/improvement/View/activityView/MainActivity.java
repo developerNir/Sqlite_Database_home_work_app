@@ -1,5 +1,6 @@
 package com.example.improvement.View.activityView;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import com.example.improvement.View.fragmentView.Inventroy;
 import com.example.improvement.View.fragmentView.Note;
 import com.example.improvement.View.fragmentView.Todo;
 import com.example.improvement.View.fragmentView.Wallet;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static FrameLayout frameLayout;
     private BottomNavigationView bottomNavigationView;
+    MaterialToolbar materialToolbar;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         frameLayout = findViewById(R.id.frameLayout);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        materialToolbar = findViewById(R.id.materialToolbar);
+
 
 
         replaceFragment(new Home());
@@ -49,17 +56,22 @@ public class MainActivity extends AppCompatActivity {
                 int itemId = menuItem.getItemId();
 
                 if (itemId == R.id.navHome){
+                    materialToolbar.setTitle("Home");
                     replaceFragment(new Home());
                     return true;
                 } else if (itemId == R.id.navNote) {
+                    materialToolbar.setTitle("Note");
                     replaceFragment(new Note());
                     return true;
                 }else if (itemId == R.id.navWallet) {
+                    materialToolbar.setTitle("Wallet");
                     replaceFragment(new Wallet());
                 }else if (itemId == R.id.navTodo) {
+                    materialToolbar.setTitle("Todo");
                     replaceFragment(new Todo());
                     return true;
                 } else if (itemId == R.id.navInventory) {
+                    materialToolbar.setTitle("My Dream");
                     replaceFragment(new Inventroy());
                     return true;
                 }

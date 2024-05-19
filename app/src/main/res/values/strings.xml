@@ -10,4 +10,19 @@
         <item>panding</item>
         <item>jest now</item>
     </string-array>
+
+
+    <string name="headerOne">improvement</string>
+    <string name="headerThree">improvement</string>
+    <string name="headerFour">improvement</string>
+    <string name="headerTwo">improvement</string>
+
+    <string name="desOne">improvement</string>
+    <string name="desTwo">improvement</string>
+    <string name="desThree">improvement</string>
+    <string name="desFour">improvement</string>
+
+    <string name="Skip">Skip</string>
+    <string name="getStart">Get Start</string>
+
 </resources>

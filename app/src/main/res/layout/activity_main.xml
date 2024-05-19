@@ -30,6 +30,7 @@
             android:layout_height="?attr/actionBarSize"
             app:title="Best Productivity"
             app:titleTextColor="#FFFFFF"
+            android:id="@+id/materialToolbar"
             app:navigationIcon="@drawable/three_line_ic"
             app:navigationIconTint="#FFFFFF"
             android:background="#9C27B0"

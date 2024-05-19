@@ -7,6 +7,11 @@
     android:id="@+id/updateNoteFrameLayout"
     tools:context=".View.fragmentView.Note_Update">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +20,6 @@
         android:id="@+id/updateNoteLayout"
         android:background="@drawable/white_out_line"
         >
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +32,8 @@
             android:src="@drawable/backspace_ic"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="50dp"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:id="@+id/backButton"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,10 +63,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/dialog_title"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="@color/white"
-            android:background="@drawable/out_line_shape"
-            android:maxLines="1"
+            android:minLines="1"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,37 +88,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:lines="6"
+            android:lines="10"
             android:id="@+id/edit_text"
-            android:background="@drawable/out_line_shape"
             android:gravity="top|left"
             android:textColor="@color/white"
             android:autoLink="all"
-            android:maxLines="20"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Date"
-        android:layout_marginTop="15dp"
-        android:textColor="#ffff"
-        android:textSize="10sp"
-        />
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/statusTextEd"
-            android:textSize="15dp"
-            android:textColor="@color/white"
-            android:background="@drawable/out_line_shape"
-            android:maxLines="1"
+            android:maxLines="300"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -123,10 +102,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:weightSum="2"
         >
         <Button
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="OK"
             android:id="@+id/btn_dialog_Ok"
             android:gravity="center_vertical|center_horizontal"
@@ -139,8 +120,9 @@
             android:layout_centerHorizontal="true"
             android:textColor="#ffffffff" />
         <Button
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:text="CANCLE"
             android:id="@+id/btn_dialog_cancle"
             android:gravity="center_vertical|center_horizontal"
@@ -156,6 +138,8 @@
 
     </LinearLayout>
 
+
     </LinearLayout>
 
+    </ScrollView>
 </FrameLayout>

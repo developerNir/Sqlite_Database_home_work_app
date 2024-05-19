@@ -2,6 +2,7 @@ package com.example.improvement.View.activityView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -22,6 +23,7 @@ public class SplashScreen extends AppCompatActivity {
 
     TextView textView;
 
+    SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,13 +57,38 @@ public class SplashScreen extends AppCompatActivity {
         // zoom animation add our onCreate function -----------------------------
         startZoomAnimation();
 
+
+
+
+
+
         // delayed splash screen time and navigation ===============================
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
-                SplashScreen.this.startActivity(mainIntent);
-                SplashScreen.this.finish();
+
+
+                // sharePreference --------------------------------------
+                sharedPreferences = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+
+                Boolean firstTimeGet = sharedPreferences.getBoolean("firstTime", true);
+
+
+                if (firstTimeGet){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("firstTime", false);
+                    editor.apply();
+
+                    Intent mainIntent = new Intent(SplashScreen.this, OnBoarding.class);
+                    SplashScreen.this.startActivity(mainIntent);
+                    SplashScreen.this.finish();
+
+                }else {
+                    Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+                    SplashScreen.this.startActivity(mainIntent);
+                    SplashScreen.this.finish();
+                }
+
             }
         },3000);
 

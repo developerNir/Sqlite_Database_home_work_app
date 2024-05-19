@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +18,9 @@
         android:theme="@style/Theme.Improvement"
         tools:targetApi="31">
         <activity
+            android:name=".View.activityView.OnBoarding"
+            android:exported="false" />
+        <activity
             android:name=".View.activityView.SplashScreen"
             android:exported="true">
             <intent-filter>
@@ -23,8 +31,7 @@
         </activity>
         <activity
             android:name=".View.activityView.MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

@@ -129,13 +129,18 @@ public class Todo extends Fragment {
             LayoutInflater layoutInflater = getLayoutInflater();
             View view1 = layoutInflater.inflate(R.layout.todo_item, null ,false);
 
-            TextView title, description, createDate, statusTV;
+            TextView title, description, dayTv, monthTv, dataTv, createDate, statusTV;
             ImageButton deleteImageButton;
 
             title = view1.findViewById(R.id.titleTvTodo);
             description = view1.findViewById(R.id.desTvTodo);
             createDate = view1.findViewById(R.id.createDateTvTodo);
             statusTV = view1.findViewById(R.id.statusTvTodo);
+            // Crate date =========
+            dayTv = view1.findViewById(R.id.dayTv);
+            monthTv = view1.findViewById(R.id.MonthTv);
+            dataTv = view1.findViewById(R.id.DateTv);
+
             deleteImageButton = view1.findViewById(R.id.deleteButtonImage);
 
             hashMap = arrayList.get(i);
@@ -149,8 +154,15 @@ public class Todo extends Fragment {
 
             title.setText(titleTodo);
             description.setText(DescriptionTodo);
-            createDate.setText(createDateTodo);
+            createDate.setText("Create Date : "+createDateTodo);
             statusTV.setText(statusTodo);
+
+            String[] date = endDateTodo.split("-");
+
+            dayTv.setText(endDateTodo.substring(0,3));
+            dataTv.setText(endDateTodo.substring(3,5));
+            monthTv.setText(endDateTodo.substring(6,9));
+
 
             deleteImageButton.setOnClickListener(view2 -> {
                 Integer var = databaseHelper.deleteTodoById(idTodo);

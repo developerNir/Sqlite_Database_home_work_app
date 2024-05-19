@@ -4,14 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingHorizontal="15dp"
-    android:paddingVertical="5dp"
+    android:paddingHorizontal="1dp"
     android:backgroundTint="#D2DFD8D8"
     >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="#ffffff"
+        >
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="10dp"
         >
 
 
@@ -29,7 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="title"
-                android:textSize="15dp" />
+                android:textStyle="bold"
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/whereTv"
@@ -46,36 +60,32 @@
                 android:textSize="13sp" />
         </LinearLayout>
 
-        <LinearLayout
+
+        <ImageView
+            android:id="@+id/deleteWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="2dp"
+            android:gravity="end"
+            android:src="@drawable/delete_ic"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:id="@+id/deleteWallet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="15dp"
-                android:gravity="end"
-                android:src="@drawable/delete_ic"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/primaryColor" />
+            app:tint="@color/primaryColor" />
 
 
-            <TextView
-                android:id="@+id/TimeTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Time"
-                android:textColor="@color/primaryColor"
-                android:textSize="9sp" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/TimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="34-45-2234 34-56-59"
+            android:textColor="@color/primaryColor"
+            android:textSize="9sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

@@ -36,19 +36,19 @@
                 android:src="@drawable/user"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            
-            
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-        
-        <TextView
+
+
+        <GridView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="200dp"
-            android:textColor="@color/primaryColor"
-            android:textSize="20dp"
-            android:text="No Data"
+            android:numColumns="3"
+            android:id="@+id/gridView"
             />
+
+
 
 
 
