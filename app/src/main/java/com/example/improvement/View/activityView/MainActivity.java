@@ -15,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.improvement.R;
+import com.example.improvement.View.fragmentView.Developer;
 import com.example.improvement.View.fragmentView.Home;
 import com.example.improvement.View.fragmentView.Inventroy;
 import com.example.improvement.View.fragmentView.Note;
@@ -55,6 +57,41 @@ public class MainActivity extends AppCompatActivity {
 
         replaceFragment(new Home());
 
+
+        // Material toolbar ================================== icon Click Listener ======
+        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if (item.getItemId() == R.id.action_developer){
+                    replaceFragment(new Developer());
+                    Toast.makeText(MainActivity.this, "Developer Option", Toast.LENGTH_SHORT).show();
+                    materialToolbar.setTitle("Developer");
+                }
+
+                if (item.getItemId() == R.id.action_settings){
+                    Toast.makeText(MainActivity.this, "Settings Option", Toast.LENGTH_SHORT).show();
+                }
+
+                if (item.getItemId() == R.id.action_more_apps){
+                    Toast.makeText(MainActivity.this, "More Apps", Toast.LENGTH_SHORT).show();
+                }
+
+                if (item.getItemId() == R.id.action_rate_us){
+                    Toast.makeText(MainActivity.this, "Rate Us", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+                return false;
+            }
+        });
+
+
+
+
+
+        // Navigation Item selected =============================
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -116,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle("Confirm Exit")
                         .setMessage("Are you sure you want to exit?")
                         .setIcon(R.drawable.exit_icon)
+                        .setCancelable(false)
                         .setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
