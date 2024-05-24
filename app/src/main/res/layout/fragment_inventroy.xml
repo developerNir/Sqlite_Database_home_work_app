@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".View.fragmentView.Inventroy">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+    tools:context=".View.fragmentView.Inventroy"
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,97 +14,34 @@
         android:orientation="vertical"
         >
 
-        <HorizontalScrollView
-            android:contentDescription="@string/app_name"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tabLayout"
             >
-            <LinearLayout
+
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
-                <androidx.cardview.widget.CardView
-                    android:layout_width="300dp"
-                    android:layout_height="200dp"
-                    app:cardElevation="7dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardMaxElevation="3dp"
+                android:layout_height="wrap_content"
+                android:text="Dream"
+                android:id="@+id/dreamTab"
+                />
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Routine"
+                android:id="@+id/RoutineTab"
+                />
 
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_margin="10dp"
-                        >
+        </com.google.android.material.tabs.TabLayout>
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:weightSum="2"
-                            >
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-
-
-
-
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="300dp"
-                    android:layout_height="200dp"
-                    app:cardElevation="7dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardMaxElevation="3dp"
-
-                    >
-
-
-
-
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="300dp"
-                    android:layout_height="200dp"
-                    app:cardElevation="7dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardMaxElevation="3dp"
-
-                    >
-
-
-
-
-
-                </androidx.cardview.widget.CardView>
-
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dreamFramLayout"
+            />
 
     </LinearLayout>
 
 
-
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>
