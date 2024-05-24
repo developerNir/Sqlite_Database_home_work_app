@@ -28,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        sqLiteDatabase.execSQL("Create TABLE dream (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, image BLOB, createDate TEXT, endDate TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE expense (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE income (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE NOTE_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, startTime TEXT )");
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS dream " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS expense " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS income " );
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS NOTE_TABLE " );
@@ -295,5 +297,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.delete("expense" , "ID=?" , new String[]{id});
     }
 
+    // my Deram Table Create and Insert ==================================================
+
+    public Boolean insertDreamData(String title, String description, byte[] image, String createDate, String endDate){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2, title);
+        contentValues.put(COL_3, description);
+        contentValues.put(COL_6, image);
+        contentValues.put(COL_5, createDate);
+        contentValues.put(COL_4, endDate);
+
+        long var = db.insert("dream", null, contentValues );
+
+
+        if(var == -1){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    // Get all data form dream =====================================
+
+    public Cursor getAllDataDreamData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursorDream = db.rawQuery("SELECT * FROM dream" , null);
+        return cursorDream;
+    }
 
 }

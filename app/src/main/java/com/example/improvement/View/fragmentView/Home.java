@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.improvement.R;
+import com.example.improvement.View.activityView.BusinessInfo;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -136,7 +137,7 @@ public class Home extends Fragment {
 
             if (id.equals("1")){
                 cardView.setOnClickListener(view1 -> {
-//                    startActivity(new Intent(context, MainActivity.class));
+                    startActivity(new Intent(context, BusinessInfo.class));
                 });
             }
             if (id.equals("2")){
