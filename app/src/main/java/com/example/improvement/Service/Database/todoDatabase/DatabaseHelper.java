@@ -323,7 +323,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Get all data form dream =====================================
 
-    public Cursor getAllDataDreamData() {
+    public Cursor getAllDreamData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursorDream = db.rawQuery("SELECT * FROM dream" , null);
         return cursorDream;

@@ -40,6 +40,10 @@ public class Inventroy extends Fragment {
 
         frameLayout = myView.findViewById(R.id.dreamFramLayout);
 
+        // default fragment ==================================
+        replaceFragment(new DreamTab());
+
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
 
             @Override
