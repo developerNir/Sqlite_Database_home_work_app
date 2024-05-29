@@ -28,11 +28,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        sqLiteDatabase.execSQL("Create TABLE dream (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, image BLOB, createDate TEXT, endDate TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE expense (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE income (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE NOTE_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, startTime TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "+ TODO_TABLE+" (id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT, description TEXT, endDate TEXT, createDate TEXT, status TEXT)");
+        sqLiteDatabase.execSQL("Create TABLE IF NOT EXISTS dream (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, image BLOB, createDate TEXT, endDate TEXT )");
 
 
     }
@@ -299,7 +299,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // my Deram Table Create and Insert ==================================================
 
-    public Boolean insertDreamData(String title, String description, byte[] image, String createDate, String endDate){
+    public Boolean DreamDataInsert(String title, String description, byte[] image, String createDate, String endDate){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
