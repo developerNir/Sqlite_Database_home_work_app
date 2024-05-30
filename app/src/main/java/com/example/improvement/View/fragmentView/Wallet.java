@@ -510,6 +510,7 @@ public class Wallet extends Fragment {
     public void loadData(){
 
         Cursor cursor = databaseHelper.getAllDataIcome();
+        Cursor cursor1 = databaseHelper.getAllDataExpense();
         arrayList.clear();
 
         totalIncomeVar = ""+databaseHelper.calculateTotalInCome();
