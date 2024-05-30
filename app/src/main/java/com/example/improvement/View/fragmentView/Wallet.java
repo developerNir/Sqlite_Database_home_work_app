@@ -72,7 +72,9 @@ public class Wallet extends Fragment {
     ListView listViewWallet, ExpenseList;
     LinearLayout expenseViewListLinearLayout, incomeLinearLayout;
     ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
+    ArrayList<HashMap<String, String>> arrayList2 = new ArrayList<>();
     HashMap<String,String> hashMap;
+    HashMap<String,String> hashMap2;
     FrameLayout frameLayout;
 
 
@@ -88,7 +90,7 @@ public class Wallet extends Fragment {
         View myView = inflater.inflate(R.layout.fragment_wallet, container, false);
 
 
-        frameLayout = myView.findViewById(R.id.myFrameLayout);
+//        frameLayout = myView.findViewById(R.id.myFrameLayout);
         addManyIncome = myView.findViewById(R.id.addManyIncome);
         expressButton = myView.findViewById(R.id.expressButton);
         incomButton = myView.findViewById(R.id.incomButton);
@@ -104,11 +106,23 @@ public class Wallet extends Fragment {
         // List View and Button ========================
         ButtonTabIncome = myView.findViewById(R.id.buttonTabIncome);
         ButtonTabExpress = myView.findViewById(R.id.buttonTabExpress);
+
+
+
+
         // List View ==================================
+
+
         listViewWallet = myView.findViewById(R.id.walletList);
+        ExpenseList = myView.findViewById(R.id.expenseWalletList);
 
         // List View Gone and Visible ================================
         incomeLinearLayout = myView.findViewById(R.id.incomeLinearLayout);
+        expenseViewListLinearLayout = myView.findViewById(R.id.expenseLinearLayout);
+
+
+
+
 
         incomButton.setVisibility(View.GONE);
         expressButton.setVisibility(View.GONE);
@@ -154,7 +168,8 @@ public class Wallet extends Fragment {
 
 
 
-            frameLayout.setVisibility(View.GONE);
+//            frameLayout.setVisibility(View.GONE);
+            expenseViewListLinearLayout.setVisibility(View.GONE);
             incomeLinearLayout.setVisibility(View.VISIBLE);
 
 
@@ -167,13 +182,15 @@ public class Wallet extends Fragment {
         ButtonTabExpress.setOnClickListener(view -> {
 
             incomeLinearLayout.setVisibility(View.GONE);
-            frameLayout.setVisibility(View.VISIBLE);
+            expenseViewListLinearLayout.setVisibility(View.VISIBLE);
+            loadExpenseData();
+//            frameLayout.setVisibility(View.VISIBLE);
 
-
-                FragmentManager fragmentManager = getChildFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.myFrameLayout, new ExpenseList());
-                fragmentTransaction.commit();
+//
+//                FragmentManager fragmentManager = getChildFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.add(R.id.myFrameLayout, new ExpenseList());
+//                fragmentTransaction.commit();
 
 
             ButtonTabExpress.setTextColor(getResources().getColor(R.color.ColorActive));
@@ -502,10 +519,121 @@ public class Wallet extends Fragment {
 
 
 
+    public class MyExpenseAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return arrayList2.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @SuppressLint("MissingInflatedId")
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view1 = layoutInflater.inflate(R.layout.expense_list_view, null ,false);
+
+            TextView titleTv, whereTv, priceTv, timeTv;
+            ImageView deleteImageButton;
+
+            titleTv = view1.findViewById(R.id.titleTv);
+            whereTv = view1.findViewById(R.id.whereTv);
+            priceTv = view1.findViewById(R.id.productTv);
+            timeTv = view1.findViewById(R.id.TimeTv);
+            deleteImageButton = view1.findViewById(R.id.deleteWallet);
+
+
+            // expense list =================================
+            hashMap2 = arrayList2.get(i);
+            String idExpense = hashMap2.get("idEx");
+            String titleExpense = hashMap2.get("titleEx");
+            String whereExpense = hashMap2.get("whareEx");
+            String timeExpenseValue = hashMap2.get("timeEx");
+            String amount = hashMap2.get("productEx");
 
 
 
 
+
+
+            timeTv.setText(timeExpenseValue);
+            whereTv.setText(whereExpense);
+            priceTv.setText("$ "+amount);
+            titleTv.setText(titleExpense);
+
+
+            deleteImageButton.setOnClickListener(view2 -> {
+                int var  = databaseHelper.deleteExpenseById(idExpense);
+                loadExpenseData();
+
+                if(var > 0){
+
+
+                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
+            return view1;
+        }
+    }
+
+
+
+    // ========== load data ====================================
+
+    public void loadExpenseData() {
+
+        Cursor cursor2 = databaseHelper.getAllDataExpense();
+        arrayList2.clear();
+
+        totalIncomeVar = ""+databaseHelper.calculateTotalInCome();
+        totalExpenseVar = ""+databaseHelper.calculateTotalExpense();
+
+        totalIncomeTV.setText("$ "+totalIncomeVar);
+        mainCashTv.setText("$ "+(databaseHelper.calculateTotalInCome()-databaseHelper.calculateTotalExpense()));
+        TotalExpenseTV.setText("$ "+totalExpenseVar);
+
+
+
+        if (cursor2 != null && cursor2.getCount() > 0) {
+            while (cursor2.moveToNext()) {
+                int id = cursor2.getInt(0);
+                String title = cursor2.getString(1);
+                String description = cursor2.getString(2);
+                String endDate = cursor2.getString(3);
+                String productPrice = cursor2.getString(4);
+
+                hashMap2 = new HashMap<>();
+                hashMap2.put("idEx", "" + id);
+                hashMap2.put("titleEx", title);
+                hashMap2.put("whareEx", description);
+                hashMap2.put("timeEx", endDate);
+                hashMap2.put("productEx", productPrice);
+
+
+                arrayList2.add(hashMap2);
+
+
+            }
+
+            ExpenseList.setAdapter(new MyExpenseAdapter());
+
+
+        }
+    }
 
     public void loadData(){
 
