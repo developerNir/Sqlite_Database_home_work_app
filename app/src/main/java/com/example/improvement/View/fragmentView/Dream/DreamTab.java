@@ -141,6 +141,7 @@ public class DreamTab extends Fragment {
                     createDate = myDateObj.format(myFormatObj);
                 }
 
+                databaseHelper = new DatabaseHelper(getContext());
                 boolean isInserted = databaseHelper.DreamDataInsert(title,des, imageBit, createDate, "90/30/2024");
 
                 if (isInserted){

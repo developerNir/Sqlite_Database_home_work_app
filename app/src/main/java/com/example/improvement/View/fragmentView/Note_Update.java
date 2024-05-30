@@ -91,6 +91,7 @@ public class Note_Update extends Fragment {
 
                 Boolean isCheck = databaseHelper.updateNoteData(id,title,des,formattedDate);
 
+
                 if (isCheck){
 
                     frameLayout.setVisibility(View.GONE);

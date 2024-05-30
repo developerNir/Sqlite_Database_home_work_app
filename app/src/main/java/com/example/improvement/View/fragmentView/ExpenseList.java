@@ -25,7 +25,6 @@ import java.util.HashMap;
 public class ExpenseList extends Fragment {
 
     ListView listView;
-    Cursor cursor;
     ArrayList<HashMap<String, String>>arrayList = new ArrayList<>();
     HashMap<String,String> hashMap;
     private DatabaseHelper databaseHelper;
@@ -40,9 +39,7 @@ public class ExpenseList extends Fragment {
         listView = myView.findViewById(R.id.expenseList);
         databaseHelper = new DatabaseHelper(getContext());
 
-
-        Cursor cursor = databaseHelper.getAllDataExpense();
-        loadExpenseData(cursor);
+        loadExpenseData();
 
 
 
@@ -105,7 +102,7 @@ public class ExpenseList extends Fragment {
 
             deleteImageButton.setOnClickListener(view2 -> {
                 int var  = databaseHelper.deleteExpenseById(idExpense);
-
+                loadExpenseData();
 
                 if(var > 0){
 
@@ -124,7 +121,12 @@ public class ExpenseList extends Fragment {
 
     // ========== load data ====================================
 
-    public void loadExpenseData(Cursor cursor) {
+    public void loadExpenseData() {
+
+        Cursor cursor = databaseHelper.getAllDataExpense();
+        arrayList.clear();
+
+
 
         if (cursor != null && cursor.getCount() > 0) {
             while (cursor.moveToNext()) {

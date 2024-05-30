@@ -5,7 +5,7 @@ import android.app.AlertDialog;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
+
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,14 +14,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
-import android.view.SurfaceControl;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -31,7 +28,6 @@ import android.widget.Toast;
 import com.example.improvement.R;
 
 import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
-import com.example.improvement.View.activityView.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -51,7 +47,6 @@ public class Note extends Fragment {
     HashMap<String,String>hashMap;
     AlertDialog alertDialog;
     ConstraintLayout frameLayout_Note;
-    Cursor cursor;
     String formattedDate;
 
     @SuppressLint("MissingInflatedId")
@@ -69,16 +64,15 @@ public class Note extends Fragment {
 
         databaseHelper = new DatabaseHelper(getContext());
 
-        cursor = databaseHelper.getAllDataFromNote();
+        loadData();
 //        StringBuffer buffer = new StringBuffer();
-        if(cursor.getCount() == 0){
-            textView.setVisibility(View.VISIBLE);
-            textView.setText("No Note");
-            Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
-        }else {
-            loadData(cursor);
-        }
-
+//        if(cursor.getCount() == 0){
+//            textView.setVisibility(View.VISIBLE);
+//            textView.setText("No Note");
+//            Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
+//        }else {
+//            loadData();
+//        }
 
 
         // AlertDialog =================note create =========================
@@ -139,23 +133,13 @@ public class Note extends Fragment {
                         databaseHelper = new DatabaseHelper(getContext());
 
                         Boolean isCheck = databaseHelper.noteInsert(title, des, formattedDate);
+
+                        // reload data ==============
+                        loadData();
+
+
                         if (isCheck){
                             alertDialog.dismiss();
-
-                            //  code is Reload Fragment ==========
-
-//                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                            ft.detach(Note.this).attach(Note.this).commit();
-//
-//
-
-//                            loadData(cursor);
-
-
-
-
-
-
 
                             Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
                         }else {
@@ -178,6 +162,7 @@ public class Note extends Fragment {
 
         return myView;
     }
+
 
 
     @Override
@@ -242,9 +227,10 @@ public class Note extends Fragment {
 
                 int isDelete = databaseHelper.deleteNoteById(idNote);
 
+                // reload data ==============
+                loadData();
+
                 if (isDelete >0 ){
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.detach(Note.this).attach(Note.this).commit();
 
                     Toast.makeText(getContext(), "Delete successful", Toast.LENGTH_SHORT).show();
                 } else {
@@ -282,7 +268,10 @@ public class Note extends Fragment {
         }
     }
 
-    public void loadData(Cursor cursor){
+    public void loadData(){
+
+        Cursor cursor = databaseHelper.getAllDataFromNote();
+        arrayList.clear();
 
         if (cursor!=null && cursor.getCount()>0){
             while (cursor.moveToNext()){

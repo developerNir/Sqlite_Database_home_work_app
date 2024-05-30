@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -28,11 +29,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        sqLiteDatabase.execSQL("CREATE TABLE dream (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, image BLOB, createDate TEXT, endDate TEXT)");
         sqLiteDatabase.execSQL("CREATE TABLE expense (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE income (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE NOTE_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, startTime TEXT )");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "+ TODO_TABLE+" (id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT, description TEXT, endDate TEXT, createDate TEXT, status TEXT)");
-        sqLiteDatabase.execSQL("Create TABLE IF NOT EXISTS dream (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, image BLOB, createDate TEXT, endDate TEXT )");
 
 
     }
@@ -259,6 +260,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
 
+
     }
 
 
@@ -302,13 +304,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Boolean DreamDataInsert(String title, String description, byte[] image, String createDate, String endDate){
 
         SQLiteDatabase db = this.getWritableDatabase();
+        db = getWritableDatabase();
+        Log.d("log", "DreamDataInsert: "+image);
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2, title);
-        contentValues.put(COL_3, description);
-        contentValues.put(COL_6, image);
-        contentValues.put(COL_5, createDate);
-        contentValues.put(COL_4, endDate);
+        contentValues.put("title", title);
+        contentValues.put("description", description);
+        contentValues.put("image", image);
+        contentValues.put("createDate", createDate);
+        contentValues.put("endDate", endDate);
 
         long var = db.insert("dream", null, contentValues );
 

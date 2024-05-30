@@ -55,7 +55,7 @@ public class Wallet extends Fragment {
     // creating a string array for displaying days.
     String[] days = new String[]{"Sunday", "Monday", "Tuesday", "Thursday", "Friday", "Saturday"};
 
-
+    String totalIncomeVar = "0", totalExpenseVar = "0";
 
     // Extended Flowting Action Button ===================
     ExtendedFloatingActionButton addManyIncome ,incomButton, expressButton;
@@ -145,6 +145,7 @@ public class Wallet extends Fragment {
         });
 
 
+
         // Tab Button Work ============= list view expense and income =========================
         ButtonTabIncome.setTextColor(getResources().getColor(R.color.ColorActive));
         ButtonTabExpress.setTextColor(getResources().getColor(R.color.white));
@@ -184,6 +185,9 @@ public class Wallet extends Fragment {
 
 
         databaseHelper = new DatabaseHelper(getContext());
+        totalExpenseVar = ""+databaseHelper.calculateTotalExpense();
+        totalIncomeVar = ""+databaseHelper.calculateTotalInCome();
+        loadData();
 
         // Alertdialog show when click this button ==============================
         incomButton.setOnClickListener(view -> {
@@ -252,11 +256,10 @@ public class Wallet extends Fragment {
                             databaseHelper = new DatabaseHelper(getContext());
 
                             Boolean isCheck = databaseHelper.insertIncomeData(title, des, formattedDate, priceDouble );
+                            loadData();
+
                             if (isCheck){
                                 alertDialog.dismiss();
-
-
-
                                 Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
                             }else {
                                 Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
@@ -402,12 +405,8 @@ public class Wallet extends Fragment {
 
 
 //               total Text View Add this Propartiy ==================================
-                Cursor cursor = databaseHelper.getAllDataIcome();
-                loadData(cursor);
 
-                totalIncomeTV.setText("$ "+databaseHelper.calculateTotalInCome());
-                mainCashTv.setText("$ "+(databaseHelper.calculateTotalInCome()-databaseHelper.calculateTotalExpense()));
-                TotalExpenseTV.setText("$ "+databaseHelper.calculateTotalExpense());
+                loadData();
 
 
 
@@ -483,7 +482,7 @@ public class Wallet extends Fragment {
             deleteImageButton.setOnClickListener(view2 -> {
 
                 int var = databaseHelper.deleteIncomeById(idWallet);
-
+                loadData();
                 if(var > 0){
 
 
@@ -508,7 +507,19 @@ public class Wallet extends Fragment {
 
 
 
-    public void loadData(Cursor cursor){
+    public void loadData(){
+
+        Cursor cursor = databaseHelper.getAllDataIcome();
+        arrayList.clear();
+
+        totalIncomeVar = ""+databaseHelper.calculateTotalInCome();
+        totalExpenseVar = ""+databaseHelper.calculateTotalExpense();
+
+        totalIncomeTV.setText("$ "+totalIncomeVar);
+        mainCashTv.setText("$ "+(databaseHelper.calculateTotalInCome()-databaseHelper.calculateTotalExpense()));
+        TotalExpenseTV.setText("$ "+totalExpenseVar);
+
+
 
         if (cursor!=null && cursor.getCount()>0){
             while (cursor.moveToNext()){
@@ -656,6 +667,7 @@ public class Wallet extends Fragment {
                     }else {
 
                         if (ExpenseIs) {
+
                             databaseHelper = new DatabaseHelper(getContext());
 
 
@@ -669,6 +681,7 @@ public class Wallet extends Fragment {
 
 
                             Boolean isCheck = databaseHelper.insertExpenseData(title, des, formattedDate, priceDouble);
+                            loadData();
                             if (isCheck) {
                                 alertDialog.dismiss();
 
@@ -683,7 +696,7 @@ public class Wallet extends Fragment {
                             Boolean isCheck = databaseHelper.insertExpenseData(title, des,formattedDate, priceDouble);
                             if (isCheck) {
                                 alertDialog.dismiss();
-
+                                loadData();
 
                                 Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
                             } else {

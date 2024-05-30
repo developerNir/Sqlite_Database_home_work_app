@@ -38,7 +38,6 @@ public class Todo extends Fragment {
     ConstraintLayout constraintLayout;
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
     HashMap<String,String>hashMap;
-    Cursor cursor;
 
 
 
@@ -57,15 +56,8 @@ public class Todo extends Fragment {
         constraintLayout = myView.findViewById(R.id.constraintLayout);
         databaseHelper = new DatabaseHelper(getContext());
 
-        cursor = databaseHelper.getAllData();
-        // list view and data form Adapter ==========================
-        if(cursor.getCount() == 0){
-            textView.setVisibility(View.VISIBLE);
-            textView.setText("No Data");
-            Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
-        }else {
-            loadData(cursor);
-        }
+        // get all data ===================================
+        loadData();
 
 
         // create Todo call ==============================
@@ -169,8 +161,7 @@ public class Todo extends Fragment {
 
 
                 if(var > 0){
-
-
+                    loadData();
                     Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
@@ -183,7 +174,18 @@ public class Todo extends Fragment {
         }
     }
 
-    public void loadData(Cursor cursor){
+    public void loadData(){
+
+        Cursor cursor = databaseHelper.getAllData();
+
+        // list view and data form Adapter ==========================
+        if(cursor.getCount() == 0){
+            textView.setVisibility(View.VISIBLE);
+            textView.setText("No Data");
+            Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
+        }
+
+        arrayList.clear();
 
         if (cursor!=null && cursor.getCount()>0){
             while (cursor.moveToNext()){
