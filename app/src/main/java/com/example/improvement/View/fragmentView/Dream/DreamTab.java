@@ -8,6 +8,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,6 +37,8 @@ import android.widget.Toast;
 import com.example.improvement.R;
 import com.example.improvement.Service.Adapter.MyAdapter;
 import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
+import com.example.improvement.Service.Model.DreamModel;
+import com.example.improvement.View.fragmentView.Note;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -46,7 +49,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class DreamTab extends Fragment {
@@ -64,6 +70,8 @@ public class DreamTab extends Fragment {
     byte[] imageBit;
     String createDate, EndDate, myEndDate;
     Bitmap bitmap;
+    ArrayList<DreamModel> dataList;
+    DreamModel dreamModel;
 
 
     @SuppressLint("MissingInflatedId")
@@ -191,13 +199,51 @@ public class DreamTab extends Fragment {
 //            }
         });
 
-        MyAdapter myAdapter = new MyAdapter();
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        // Load data form Recyceler View ========
+        loadData();
+
 
 
         return myView;
     }
+
+
+    public void loadData(){
+
+
+        Cursor cursor = databaseHelper.getAllDreamData();
+
+
+        if (cursor!=null && cursor.getCount()>0){
+            while (cursor.moveToNext()){
+                String title = cursor.getString(1);
+                String description = cursor.getString(2);
+                byte[] image = cursor.getBlob(3);
+                String createDate = cursor.getString(4);
+                String endDate = cursor.getString(5);
+
+
+                Log.d("dreamData", "loadData: "+createDate);
+
+                dreamModel = new DreamModel(title,description,image,createDate,endDate);
+                dataList.add(dreamModel);
+
+
+
+
+            }
+
+            MyAdapter myAdapter = new MyAdapter(getContext(),dataList );
+            recyclerView.setAdapter(myAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+
+        }
+    }
+
 
 
 

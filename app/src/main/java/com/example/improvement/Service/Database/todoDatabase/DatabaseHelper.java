@@ -304,8 +304,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Boolean DreamDataInsert(String title, String description, byte[] image, String createDate, String endDate){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db = getWritableDatabase();
-        Log.d("log", "DreamDataInsert: "+image);
+        Log.d("DreamLog", "DreamDataInsert: "+image);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);

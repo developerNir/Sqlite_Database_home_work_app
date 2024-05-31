@@ -6,55 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".View.fragmentView.Home">
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp"
-        >
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/scrollView">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             >
-
-            <TextView
-                android:id="@+id/textView2"
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Hi, Nirapadak "
-                android:textColor="#B99C27B0"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:saveEnabled="true"
+                >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_margin="0dp"
+                android:padding="5dp"
+                android:layout_gravity="center_vertical"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_shap_out_line"
+                    android:paddingVertical="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="Habit Building"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="13dp"
+                    android:textColor="@color/primaryColor"
+                    />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/user"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
+            </HorizontalScrollView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"
+        />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
-
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="3"
-            android:id="@+id/gridView"
-            />
-
-
-
-
-
-
-
-    </LinearLayout>
 
 
 </FrameLayout>

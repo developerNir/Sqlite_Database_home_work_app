@@ -164,20 +164,6 @@ public class Note extends Fragment {
     }
 
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Toast.makeText(getContext(), "On Resume", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Toast.makeText(getContext(), "On start", Toast.LENGTH_SHORT).show();
-
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
