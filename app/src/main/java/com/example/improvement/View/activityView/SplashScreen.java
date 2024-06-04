@@ -3,11 +3,14 @@ package com.example.improvement.View.activityView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,7 @@ import com.example.improvement.R;
 public class SplashScreen extends AppCompatActivity {
 
     TextView textView;
+    private VideoView videoView;
 
     SharedPreferences sharedPreferences;
 
@@ -39,6 +43,22 @@ public class SplashScreen extends AppCompatActivity {
 
 
         textView = findViewById(R.id.textview);
+
+        videoView = findViewById(R.id.videoView);
+
+        // Set the video URI (replace with your video URL or local path)
+        Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.improvment_logo_video);
+
+        // Set up the media controller
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
+
+        // Set the URI to the VideoView
+        videoView.setVideoURI(videoUri);
+
+        // Start the video
+        videoView.start();
 
 
 

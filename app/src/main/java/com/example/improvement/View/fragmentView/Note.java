@@ -259,6 +259,7 @@ public class Note extends Fragment {
         Cursor cursor = databaseHelper.getAllDataFromNote();
         arrayList.clear();
 
+
         if (cursor!=null && cursor.getCount()>0){
             while (cursor.moveToNext()){
                 int id = cursor.getInt(0);

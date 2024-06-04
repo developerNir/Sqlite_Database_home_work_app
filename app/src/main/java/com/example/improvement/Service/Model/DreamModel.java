@@ -2,13 +2,15 @@ package com.example.improvement.Service.Model;
 
 public class DreamModel {
 
+    int id;
     String title;
     String des;
     byte[] image;
     String createDate;
     String endDate;
 
-    public DreamModel(String title, String des, byte[] image, String createDate, String endDate) {
+    public DreamModel(int id,String title, String des, byte[] image, String createDate, String endDate) {
+        this.id = id;
         this.title = title;
         this.des = des;
         this.image = image;
@@ -16,6 +18,13 @@ public class DreamModel {
         this.endDate = endDate;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

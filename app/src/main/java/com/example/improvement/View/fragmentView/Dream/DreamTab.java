@@ -28,9 +28,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -61,7 +64,7 @@ public class DreamTab extends Fragment {
     TextInputEditText dreamDesEd, dreamTitleEd;
     TextInputLayout dreamTitleLayout, dreamDesLayout;
     LinearLayout addDreamLayout;
-    RecyclerView recyclerView;
+    ListView recyclerView;
     ImageView addImageView;
     Uri ImagePath;
     DatePickerDialog picker;
@@ -71,7 +74,8 @@ public class DreamTab extends Fragment {
     String createDate, EndDate, myEndDate;
     Bitmap bitmap;
     ArrayList<DreamModel> dataList;
-    DreamModel dreamModel;
+    private DreamModel dreamModel;
+    Cursor cursor;
 
 
     @SuppressLint("MissingInflatedId")
@@ -202,22 +206,88 @@ public class DreamTab extends Fragment {
 
 
         // Load data form Recyceler View ========
-        loadData();
 
+        if(cursor.getCount() == -1){
+//            textView.setVisibility(View.VISIBLE);
+//            textView.setText("No Data");
+            Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
+        }else {
+            loadData(cursor);
+        }
 
 
         return myView;
     }
 
 
-    public void loadData(){
+
+    // Adapter and BaseAdapter ==================
+
+    public class MyAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return dataList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view1 = layoutInflater.inflate(R.layout.blog_card_item, null ,false);
+
+            TextView titleTv, DesTv;
+            ImageView imageView;
+
+            titleTv = view1.findViewById(R.id.titleTv);
+            imageView = view1.findViewById(R.id.imageView);
 
 
-        Cursor cursor = databaseHelper.getAllDreamData();
+
+
+             DreamModel item = dataList.get(i);
+             titleTv.setText(item.getTitle());
+             byte[] image = item.getImage();
+
+
+
+            Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+
+
+
+
+
+
+//            byte[] data = item1.getBytes();
+            imageView.setImageBitmap(bmp);
+
+
+
+
+
+            return view1;
+        }
+    }
+
+    public void loadData(Cursor cursor){
+
+
+        cursor = databaseHelper.getAllDreamData();
 
 
         if (cursor!=null && cursor.getCount()>0){
             while (cursor.moveToNext()){
+                int id = cursor.getInt(0);
                 String title = cursor.getString(1);
                 String description = cursor.getString(2);
                 byte[] image = cursor.getBlob(3);
@@ -227,7 +297,7 @@ public class DreamTab extends Fragment {
 
                 Log.d("dreamData", "loadData: "+createDate);
 
-                dreamModel = new DreamModel(title,description,image,createDate,endDate);
+                dreamModel = new DreamModel(id,title,description,image,createDate,endDate);
                 dataList.add(dreamModel);
 
 
@@ -235,14 +305,15 @@ public class DreamTab extends Fragment {
 
             }
 
-            MyAdapter myAdapter = new MyAdapter(getContext(),dataList );
+            MyAdapter myAdapter = new MyAdapter();
             recyclerView.setAdapter(myAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
 
         }
     }
+
 
 
 
