@@ -287,20 +287,38 @@ public class DreamTab extends Fragment {
         }
 
 
+
         if (cursor!=null && cursor.getCount()>0){
-            while (cursor.moveToNext()){
-                int id = cursor.getInt(0);
-                String title = cursor.getString(1);
-                String description = cursor.getString(2);
-                byte[] image = cursor.getBlob(3);
-                String createDate = cursor.getString(4);
-                String endDate = cursor.getString(5);
+            while (cursor.moveToFirst()){
+
+                int columnIndex = cursor.getColumnIndex("id");
+                int columnIndex1 = cursor.getColumnIndex("title");
+                int columnIndex2 = cursor.getColumnIndex("description");
+                int columnIndex3 = cursor.getColumnIndex("image");
+                int columnIndex4 = cursor.getColumnIndex("createDate");
+                int columnIndex5 = cursor.getColumnIndex("endDate");
+
+
+
+                int id = cursor.getInt(columnIndex);
+                String title = cursor.getString(columnIndex1);
+                String description = cursor.getString(columnIndex2);
+                byte[] blob = cursor.getBlob(columnIndex3);
+
+
+                String createDate = cursor.getString(columnIndex4);
+                String endDate = cursor.getString(columnIndex5);
 
 
 
 
 
-                dreamModel = new DreamModel(id,title,description,image,createDate,endDate);
+                if (blob != null) {
+                    dreamModel = new DreamModel(id,title,description,blob,createDate,endDate);
+                    // Process the blob data
+                } else {
+                    Log.e("DreamTab", "BLOB data is null");
+                }
 
                 if (arrayList == null) {
                     arrayList = new ArrayList<>(); // Initialize if null to prevent NullPointerException
@@ -311,6 +329,8 @@ public class DreamTab extends Fragment {
 
 
             }
+
+
 
             MyAdapter myAdapter = new MyAdapter();
             recyclerView.setAdapter(myAdapter);
