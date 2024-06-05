@@ -21,7 +21,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -38,10 +37,8 @@ import android.widget.Toast;
 
 
 import com.example.improvement.R;
-import com.example.improvement.Service.Adapter.MyAdapter;
 import com.example.improvement.Service.Database.todoDatabase.DatabaseHelper;
 import com.example.improvement.Service.Model.DreamModel;
-import com.example.improvement.View.fragmentView.Note;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -54,8 +51,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class DreamTab extends Fragment {
@@ -73,7 +68,7 @@ public class DreamTab extends Fragment {
     byte[] imageBit;
     String createDate, EndDate, myEndDate;
     Bitmap bitmap;
-    ArrayList<DreamModel> dataList;
+    ArrayList<DreamModel> arrayList = new ArrayList<>();
     private DreamModel dreamModel;
     Cursor cursor;
 
@@ -157,6 +152,10 @@ public class DreamTab extends Fragment {
                 boolean isInserted = databaseHelper.DreamDataInsert(title,des, imageBit, createDate, "90/30/2024");
 
                 if (isInserted){
+
+                    // load data form recycler view =================
+                    loadData();
+
                     Toast.makeText(getContext(), "Dream Added", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
@@ -184,6 +183,7 @@ public class DreamTab extends Fragment {
             addDreamLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
 
+            loadData();
 
 //            if (addDreamBtn.getVisibility() == View.VISIBLE){
 //                addDreamLayout.setVisibility(View.GONE);
@@ -207,13 +207,9 @@ public class DreamTab extends Fragment {
 
         // Load data form Recyceler View ========
 
-        if(cursor.getCount() == -1){
-//            textView.setVisibility(View.VISIBLE);
-//            textView.setText("No Data");
-            Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
-        }else {
-            loadData(cursor);
-        }
+
+        loadData();
+
 
 
         return myView;
@@ -225,9 +221,10 @@ public class DreamTab extends Fragment {
 
     public class MyAdapter extends BaseAdapter {
 
+
         @Override
         public int getCount() {
-            return dataList.size();
+            return arrayList.size();
         }
 
         @Override
@@ -255,13 +252,13 @@ public class DreamTab extends Fragment {
 
 
 
-             DreamModel item = dataList.get(i);
+             DreamModel item = arrayList.get(i);
              titleTv.setText(item.getTitle());
-             byte[] image = item.getImage();
+             byte[] newImage = item.getImage();
 
 
 
-            Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
+            Bitmap bmp = BitmapFactory.decodeByteArray(newImage, 0, newImage.length);
 
 
 
@@ -279,10 +276,15 @@ public class DreamTab extends Fragment {
         }
     }
 
-    public void loadData(Cursor cursor){
+    public void loadData(){
 
 
         cursor = databaseHelper.getAllDreamData();
+        arrayList.clear();
+
+        if (cursor==null && cursor.getCount()==0){
+            Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
+        }
 
 
         if (cursor!=null && cursor.getCount()>0){
@@ -295,10 +297,15 @@ public class DreamTab extends Fragment {
                 String endDate = cursor.getString(5);
 
 
-                Log.d("dreamData", "loadData: "+createDate);
+
+
 
                 dreamModel = new DreamModel(id,title,description,image,createDate,endDate);
-                dataList.add(dreamModel);
+
+                if (arrayList == null) {
+                    arrayList = new ArrayList<>(); // Initialize if null to prevent NullPointerException
+                }
+                arrayList.add(dreamModel);
 
 
 
@@ -307,6 +314,9 @@ public class DreamTab extends Fragment {
 
             MyAdapter myAdapter = new MyAdapter();
             recyclerView.setAdapter(myAdapter);
+
+//            MyAdapter myAdapter = new MyAdapter(getContext(), dataList);
+//            recyclerView.setAdapter(myAdapter);
 //            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 

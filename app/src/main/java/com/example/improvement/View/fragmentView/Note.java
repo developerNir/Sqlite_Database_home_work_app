@@ -48,6 +48,7 @@ public class Note extends Fragment {
     AlertDialog alertDialog;
     ConstraintLayout frameLayout_Note;
     String formattedDate;
+//    Cursor cursor;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -258,6 +259,13 @@ public class Note extends Fragment {
 
         Cursor cursor = databaseHelper.getAllDataFromNote();
         arrayList.clear();
+
+
+        if(cursor.getCount() == 0) {
+            textView.setVisibility(View.VISIBLE);
+            textView.setText("No Note");
+            Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
+        }
 
 
         if (cursor!=null && cursor.getCount()>0){
