@@ -289,7 +289,7 @@ public class DreamTab extends Fragment {
 
 
         if (cursor!=null && cursor.getCount()>0){
-            while (cursor.moveToFirst()){
+            while (cursor.moveToNext()){
 
                 int columnIndex = cursor.getColumnIndex("id");
                 int columnIndex1 = cursor.getColumnIndex("title");
@@ -398,7 +398,7 @@ public class DreamTab extends Fragment {
 
     private byte[] getBitmapAsByteArray(Bitmap bitmap) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, outputStream);
         return outputStream.toByteArray();
     }
 

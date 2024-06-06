@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE expense (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE income (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, location TEXT, time TEXT,  amount DOUBLE )");
         sqLiteDatabase.execSQL("CREATE TABLE NOTE_TABLE (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, startTime TEXT )");
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS "+ TODO_TABLE+" (id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT, description TEXT, endDate TEXT, createDate TEXT, status TEXT)");
+        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS " + TODO_TABLE + " (id INTEGER PRIMARY KEY AUTOINCREMENT , title TEXT, description TEXT, endDate TEXT, createDate TEXT, status TEXT)");
 
 
     }
@@ -41,18 +41,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS dream " );
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS expense " );
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS income " );
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS NOTE_TABLE " );
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TODO_TABLE );
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS dream ");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS expense ");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS income ");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS NOTE_TABLE ");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TODO_TABLE);
         // Problem One that is my main problem ======================
         onCreate(sqLiteDatabase);
     }
 
 
     // insert Data ---------------------todo-------------------
-    public Boolean insertData(String title, String description, String endDate, String createDate, String status){
+    public Boolean insertData(String title, String description, String endDate, String createDate, String status) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -63,12 +63,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_5, createDate);
         contentValues.put(COL_6, status);
 
-        long var = db.insert(TODO_TABLE, null, contentValues );
+        long var = db.insert(TODO_TABLE, null, contentValues);
 
 
-        if(var == -1){
+        if (var == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -76,12 +76,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // todo ===================== getData By id============================
 
-    public Cursor getData(String id){
+    public Cursor getData(String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String query = "SELECT * FROM " +TODO_TABLE+ " WHERE ID='" +id+"'";
-        Cursor cursor = db.rawQuery(query , null);
+        String query = "SELECT * FROM " + TODO_TABLE + " WHERE ID='" + id + "'";
+        Cursor cursor = db.rawQuery(query, null);
 
         return cursor;
     }
@@ -90,23 +90,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TODO_TABLE , null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TODO_TABLE, null);
         return cursor;
     }
 
 
-
     // todo ==================== delete data by Id ============================
-    public Integer deleteTodoById(String id){
+    public Integer deleteTodoById(String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return db.delete(TODO_TABLE , "ID=?" , new String[]{id});
+        return db.delete(TODO_TABLE, "ID=?", new String[]{id});
     }
 
     //================================ Note =================================
     // note table data insert -------------------------------------
-    public Boolean noteInsert(String title, String description, String startTime){
+    public Boolean noteInsert(String title, String description, String startTime) {
 
         SQLiteDatabase mydb = this.getWritableDatabase();
 
@@ -116,12 +115,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Values.put("startTime", startTime);
 
 
-        long var1 = mydb.insert("NOTE_TABLE", null, Values );
+        long var1 = mydb.insert("NOTE_TABLE", null, Values);
 
 
-        if(var1 == -1){
+        if (var1 == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -131,52 +130,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllDataFromNote() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor1 = db.rawQuery("SELECT * FROM NOTE_TABLE" , null);
+        Cursor cursor1 = db.rawQuery("SELECT * FROM NOTE_TABLE", null);
         return cursor1;
     }
 
     // note Update ===============================================
 
-    public boolean updateNoteData(String id , String title ,String des, String startTime){
+    public boolean updateNoteData(String id, String title, String des, String startTime) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("id" , id);
-        contentValues.put("title" , title);
-        contentValues.put("description" , des);
-        contentValues.put("startTime" , startTime);
+        contentValues.put("id", id);
+        contentValues.put("title", title);
+        contentValues.put("description", des);
+        contentValues.put("startTime", startTime);
 
-        db.update("NOTE_TABLE" , contentValues , "ID=?" , new  String[]{id});
+        db.update("NOTE_TABLE", contentValues, "ID=?", new String[]{id});
         return true;
     }
 
     // delete note ==========================================
 
-    public Integer deleteNoteById(String id){
+    public Integer deleteNoteById(String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return db.delete("NOTE_TABLE" , "ID=?" , new String[]{id});
+        return db.delete("NOTE_TABLE", "ID=?", new String[]{id});
     }
 
     // Wallet ====================== wallet ===========================================
-
-
-
-
-
-
-
-
-
-
 
 
     // Wallet ====================== wallet ===========================================
 
 
     // insert Data ---------------------todo-------------------
-    public Boolean insertIncomeData(String title, String where, String time,Double product){
+    public Boolean insertIncomeData(String title, String where, String time, Double product) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -187,12 +176,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("amount", product);
 
 
-        long var = db.insert("income", null, contentValues );
+        long var = db.insert("income", null, contentValues);
 
 
-        if(var == -1){
+        if (var == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -202,32 +191,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllDataIcome() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor3 = db.rawQuery("SELECT * FROM income" , null);
+        Cursor cursor3 = db.rawQuery("SELECT * FROM income", null);
         return cursor3;
     }
 
     // Delete wallet income item by id =================================
 
-    public Integer deleteIncomeById(String id){
+    public Integer deleteIncomeById(String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return db.delete("income" , "ID=?" , new String[]{id});
+        return db.delete("income", "ID=?", new String[]{id});
     }
 
     // calculate Total expense ================================
 
-    public Double calculateTotalInCome(){
+    public Double calculateTotalInCome() {
 
         double totalIncome = 0;
 
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("select * from income", null);
 
-        if (cursor!=null && cursor.getCount()>0){
-            while (cursor.moveToNext()){
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
                 double income = cursor.getDouble(4);
-                totalIncome = totalIncome+income;
+                totalIncome = totalIncome + income;
             }
         }
 
@@ -237,10 +226,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
     // add data expense Table ================== expense =====================================
 
-    public Boolean insertExpenseData(String title, String where, String time,Double product){
+    public Boolean insertExpenseData(String title, String where, String time, Double product) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -251,12 +239,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("amount", product);
 
 
-        long var = db.insert("expense", null, contentValues );
+        long var = db.insert("expense", null, contentValues);
 
 
-        if(var == -1){
+        if (var == -1) {
             return false;
-        }else{
+        } else {
             return true;
         }
 
@@ -266,22 +254,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllDataExpense() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor4 = db.rawQuery("SELECT * FROM expense" , null);
+        Cursor cursor4 = db.rawQuery("SELECT * FROM expense", null);
         return cursor4;
     }
 
 
-    public Double calculateTotalExpense(){
+    public Double calculateTotalExpense() {
 
         double totalIncome = 0;
 
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("select * from expense", null);
 
-        if (cursor!=null && cursor.getCount()>0){
-            while (cursor.moveToNext()){
+        if (cursor != null && cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
                 double income = cursor.getDouble(4);
-                totalIncome = totalIncome+income;
+                totalIncome = totalIncome + income;
             }
         }
 
@@ -292,38 +280,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // delete expense form Database by id =======================
 
-    public Integer deleteExpenseById(String id){
+    public Integer deleteExpenseById(String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return db.delete("expense" , "ID=?" , new String[]{id});
+        return db.delete("expense", "ID=?", new String[]{id});
     }
 
     // my Deram Table Create and Insert ==================================================
 
-    public Boolean DreamDataInsert(String title, String description, byte[] image, String createDate, String endDate){
+    public Boolean DreamDataInsert(String title, String description, byte[] image, String createDate, String endDate) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Log.d("DreamLog", "DreamDataInsert: "+image);
+        if (image != null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            Log.d("DreamLog", "DreamDataInsert: " + image);
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("title", title);
-        contentValues.put("description", description);
-        contentValues.put("image", image);
-        contentValues.put("createDate", createDate);
-        contentValues.put("endDate", endDate);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("title", title);
+            contentValues.put("description", description);
+            contentValues.put("image", image);
+            contentValues.put("createDate", createDate);
+            contentValues.put("endDate", endDate);
 
-        long var = db.insert("dream", null, contentValues );
+            long var = db.insert("dream", null, contentValues);
 
 
-        if(var == -1){
-            return false;
+            if (var == -1) {
+                return false;
+            } else {
+                return true;
+            }
+
+            // if image is null ==================================================
         }else{
-            return true;
+            return false;
         }
-
     }
-
     // Get all data form dream =====================================
 
     public Cursor getAllDreamData() {

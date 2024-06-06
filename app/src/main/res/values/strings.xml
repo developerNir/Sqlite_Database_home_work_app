@@ -25,4 +25,11 @@
     <string name="Skip">Skip</string>
     <string name="getStart">Get Start</string>
 
+
+<!--    // rutine app ======================-->
+
+    <string name="back">Back</string>
+    <string name="forward">Forward</string>
+
+
 </resources>
