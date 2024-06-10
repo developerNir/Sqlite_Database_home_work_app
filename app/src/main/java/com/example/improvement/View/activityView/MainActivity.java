@@ -9,24 +9,18 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import android.window.OnBackInvokedDispatcher;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.improvement.R;
 import com.example.improvement.View.fragmentView.Developer;
+import com.example.improvement.View.fragmentView.Dream.DreamTab;
 import com.example.improvement.View.fragmentView.Home;
-import com.example.improvement.View.fragmentView.Inventroy;
 import com.example.improvement.View.fragmentView.Note;
 import com.example.improvement.View.fragmentView.Todo;
 import com.example.improvement.View.fragmentView.Wallet;
@@ -115,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else if (itemId == R.id.navInventory) {
                     materialToolbar.setTitle("My Dream");
-                    replaceFragment(new Inventroy());
+                    replaceFragment(new DreamTab());
                     return true;
                 }
 

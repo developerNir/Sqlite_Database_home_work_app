@@ -15,34 +15,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:saveEnabled="true"
-                >
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_margin="0dp"
-                android:padding="5dp"
-                android:layout_gravity="center_vertical"
-                >
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/button_shap_out_line"
-                    android:paddingVertical="0dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="Habit Building"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="13dp"
-                    android:textColor="@color/primaryColor"
-                    />
 
-            </LinearLayout>
-            </HorizontalScrollView>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

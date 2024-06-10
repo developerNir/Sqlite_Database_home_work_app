@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.activityView.BusinessInfo"
+    android:orientation="vertical"
+
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/topImg"
+                android:scaleType="centerCrop"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/topicTV"
+                android:text="GOAL SETTING"
+                android:textColor="@color/primaryColor"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:textAllCaps="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:id="@+id/titleTV"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="description"
+                android:textSize="20sp"
+                android:id="@+id/descriptionTV"
+                />
+            <TextView
+                android:id="@+id/headOneTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head One"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                />
+            <TextView
+                android:id="@+id/desOneTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description one"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                />
+            <TextView
+                android:id="@+id/headTwoTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head One"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                />
+            <TextView
+                android:id="@+id/desTwoTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description one"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                />
+            <TextView
+                android:id="@+id/headThreeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head One"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                />
+            <TextView
+                android:id="@+id/desThreeTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description one"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                />
+            <TextView
+                android:id="@+id/headFourTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head One"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                />
+            <TextView
+                android:id="@+id/desFourTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description one"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                />
+            <TextView
+                android:id="@+id/headFiveTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head One"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                />
+            <TextView
+                android:id="@+id/desFiveTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description one"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginVertical="14dp"
+                >
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/favorite_ic"
+                    android:text="Likes"
+                    android:id="@+id/likesButton"
+                    android:backgroundTint="#F2E6F4"
+                    android:textColor="#8C8484"
+                    app:iconTint="#918989"
+                    android:textSize="10dp"
+                    android:layout_weight="1"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/share_ic"
+                    android:text="Share"
+                    android:textSize="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/ShareButton"
+                    android:backgroundTint="#F2E6F4"
+                    android:textColor="#8C8484"
+                    app:iconTint="#918989"
+                    android:layout_weight="1"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/whats_app_ic"
+                    android:text="WhatsApp"
+                    android:textSize="10dp"
+                    android:id="@+id/WhatsAppButton"
+                    android:backgroundTint="#F2E6F4"
+                    android:textColor="#8C8484"
+                    app:iconTint="#918989"
+                    android:layout_weight="1"
+                    />
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/previousTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Previous"
+                    android:textColor="#2196F3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/NextTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="Next"
+                    android:textColor="#2196F3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/qoute_icon"
+                    android:id="@+id/QauteImg"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qaute"
+                    android:gravity="center"
+                    android:textColor="#AA9F9F"
+                    android:textStyle="italic"
+                    android:textSize="20sp"
+                    android:id="@+id/QauteTV"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Qaute"
+                    android:padding="20dp"
+                    android:textColor="#A82F2F"
+                    android:textStyle="italic"
+                    android:textSize="16sp"
+                    android:id="@+id/QauteTypeTV"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
