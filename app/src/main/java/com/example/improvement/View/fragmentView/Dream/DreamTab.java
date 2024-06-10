@@ -71,6 +71,7 @@ public class DreamTab extends Fragment {
     ArrayList<DreamModel> arrayList = new ArrayList<>();
     private DreamModel dreamModel;
     Cursor cursor;
+    TextView textMassage;
 
 
     @SuppressLint("MissingInflatedId")
@@ -86,6 +87,8 @@ public class DreamTab extends Fragment {
         recyclerView = myView.findViewById(R.id.recyclerView);
 
         addImageView = myView.findViewById(R.id.addImageView);
+
+        textMassage = myView.findViewById(R.id.createMassage);
 
         dreamTitleEd = myView.findViewById(R.id.dreamTitleEd);
         dreamDesEd = myView.findViewById(R.id.dreamDesEd);
@@ -237,26 +240,50 @@ public class DreamTab extends Fragment {
             return 0;
         }
 
+        @SuppressLint("MissingInflatedId")
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
 
             LayoutInflater layoutInflater = getLayoutInflater();
             View view1 = layoutInflater.inflate(R.layout.blog_card_item, null ,false);
 
-            TextView titleTv, DesTv;
-            ImageView imageView;
+            TextView titleTv, DesTv, textView3;
+            ImageView imageView,deleteImage;
 
+            deleteImage = view1.findViewById(R.id.deleteImage);
             titleTv = view1.findViewById(R.id.titleTv);
             imageView = view1.findViewById(R.id.imageView);
+            DesTv = view1.findViewById(R.id.DesTv);
+            textView3 = view1.findViewById(R.id.textView3);
 
 
 
 
-             DreamModel item = arrayList.get(i);
-             titleTv.setText(item.getTitle());
-             byte[] newImage = item.getImage();
+
+            DreamModel item = arrayList.get(i);
+            titleTv.setText(item.getTitle());
+            byte[] newImage = item.getImage();
+            int id = item.getId();
+            String myId = String.valueOf(id);
+
+            DesTv.setText(item.getDes());
+            textView3.setText(item.getCreateDate());
 
 
+
+            deleteImage.setOnClickListener(viewDelete ->{
+
+                int isDelete = databaseHelper.DeleteDreamById(myId);
+                loadData();
+
+                if(isDelete > 0){
+
+                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
+                }
+
+            });
 
             Bitmap bmp = BitmapFactory.decodeByteArray(newImage, 0, newImage.length);
 
@@ -282,7 +309,10 @@ public class DreamTab extends Fragment {
         cursor = databaseHelper.getAllDreamData();
         arrayList.clear();
 
-        if (cursor==null && cursor.getCount()==0){
+        if (cursor.getCount()== -1){
+            textMassage.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            textMassage.setText("Click the Button below to add your Dream");
             Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
         }
 
@@ -424,7 +454,6 @@ public class DreamTab extends Fragment {
 
         Log.d("log", "datePickerSetAndEnd: "+day+month+year);
 
-        addEndDateBtn.setText(day+"-"+month+"-"+year);
 
 
         // date picker dialog

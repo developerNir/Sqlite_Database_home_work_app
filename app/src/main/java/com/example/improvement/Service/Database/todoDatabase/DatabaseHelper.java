@@ -324,4 +324,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursorDream;
     }
 
+    public Integer DeleteDreamById(String id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete("dream", "ID=?", new String[]{id});
+    }
+
 }

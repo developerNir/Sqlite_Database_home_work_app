@@ -37,8 +37,20 @@
                 android:text="Investment and Stock"
                 android:textColor="@color/black"
                 android:id="@+id/titleTv"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="Investment and Stock"
+                android:textColor="@color/black"
+                android:id="@+id/DesTv"
+                android:layout_marginStart="8dp"
+                />
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,43 +58,25 @@
                 android:layout_marginBottom="4dp"
                 >
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Habit Building"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
                     android:text="29 Mar, 2024"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="34"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/likesImage"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/likesImage"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/deleteImage"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
                     android:paddingStart="4dp"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/favorite_ic"
+                    android:src="@drawable/delete_ic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

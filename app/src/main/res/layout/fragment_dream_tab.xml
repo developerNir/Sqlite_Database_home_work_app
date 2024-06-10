@@ -8,6 +8,16 @@
     >
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Click the button below to Create Your Dream List"
+        android:textSize="20sp"
+        android:padding="30dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:id="@+id/createMassage"
+        />
 
         <ScrollView
             android:id="@+id/scrollView"
