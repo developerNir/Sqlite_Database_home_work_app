@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:tint="@color/white"
-                android:src="@drawable/productivity"
+                android:src="@drawable/image_ic"
                 tools:ignore="UseAppTint" />
             <TextView
                 android:id="@+id/dash_text"

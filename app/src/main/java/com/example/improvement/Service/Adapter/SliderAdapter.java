@@ -28,10 +28,10 @@ public class SliderAdapter extends PagerAdapter {
 
     // Image array ---------------------------------------
     int Images[] = {
-            R.drawable.efficiency,
-            R.drawable.fast,
-            R.drawable.multitasking,
-            R.drawable.productivity,
+            R.drawable.note,
+            R.drawable.todo,
+            R.drawable.income,
+            R.drawable.dream,
 
     };
 

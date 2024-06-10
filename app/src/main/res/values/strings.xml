@@ -13,9 +13,9 @@
 
 
     <string name="headerOne">Note Your Ideas and Thoughts</string>
-    <string name="headerThree">Manage Your Time With TO Do List</string>
-    <string name="headerFour">Manage Your Finances With Budget</string>
-    <string name="headerTwo">Create Your Dreams and Wish</string>
+    <string name="headerTwo">Manage Your Time With TO Do List</string>
+    <string name="headerThree">Manage Your Finances With Budget</string>
+    <string name="headerFour">Create Your Dreams and Wish</string>
 
     <string name="desOne">Capture your thoughts, ideas, and important information with ease.</string>
     <string name="desTwo"> Stay organized and prioritize your tasks with customizable to-do lists.</string>
