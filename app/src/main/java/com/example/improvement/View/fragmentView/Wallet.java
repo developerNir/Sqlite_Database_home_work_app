@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -239,55 +240,118 @@ public class Wallet extends Fragment {
 
                 // Ok button ==================================
                 Button dialogButtonOk = (Button) viewDialog.findViewById(R.id.btn_dialog);
-                dialogButtonOk.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public int hashCode() {
-                        return super.hashCode();
-                    }
+//                dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public int hashCode() {
+//                        return super.hashCode();
+//                    }
+//
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        String title = titleEd.getText().toString();
+//                        String des = where.getText().toString();
+//                        String status = product.getText().toString();
+//                        Double priceDouble = Double.parseDouble(status);
+//
+//                        if (title.isEmpty()){
+//                            titleEd.setError("Value is Emtiy");
+//                        } else if (des.isEmpty()) {
+//                            where.setError("Value is Emtiy");
+//
+//                        } else if (status.isEmpty()) {
+//                            product.setError("Value is Emtiy");
+//
+//                        }else {
+//
+//                            LocalDateTime myDateObj = null;
+//                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                                myDateObj = LocalDateTime.now();
+//                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
+//                                formattedDate = myDateObj.format(myFormatObj);
+//                            }
+//
+//                            databaseHelper = new DatabaseHelper(getContext());
+//
+//                            Boolean isCheck = databaseHelper.insertIncomeData(title, des, formattedDate, priceDouble );
+//                            loadData();
+//
+//                            if (isCheck){
+//                                alertDialog.dismiss();
+//                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+//                            }else {
+//                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        }
+//
+//                    }
+//                });
 
-                    @Override
-                    public void onClick(View v) {
-
+            dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
                         String title = titleEd.getText().toString();
                         String des = where.getText().toString();
                         String status = product.getText().toString();
-                        Double priceDouble = Double.parseDouble(status);
+                        boolean IncomeIs = true;
 
-                        if (title.isEmpty()){
-                            titleEd.setError("Value is Emtiy");
+                        // Check for empty fields first
+                        if (title.isEmpty()) {
+                            titleEd.setError("Value is Empty");
+                            return;
                         } else if (des.isEmpty()) {
-                            where.setError("Value is Emtiy");
-
+                            where.setError("Value is Empty");
+                            return;
                         } else if (status.isEmpty()) {
-                            product.setError("Value is Emtiy");
-
-                        }else {
-
-                            LocalDateTime myDateObj = null;
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                myDateObj = LocalDateTime.now();
-                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MM-yyyy HH:mm:ss");
-                                formattedDate = myDateObj.format(myFormatObj);
-                            }
-
-                            databaseHelper = new DatabaseHelper(getContext());
-
-                            Boolean isCheck = databaseHelper.insertIncomeData(title, des, formattedDate, priceDouble );
-                            loadData();
-
-                            if (isCheck){
-                                alertDialog.dismiss();
-                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
-                            }
-
+                            product.setError("Value is Empty");
+                            return;
                         }
 
-                    }
-                });
+                        // Parse the price value
+                        Double priceDouble;
+                        try {
+                            priceDouble = Double.parseDouble(status);
+                        } catch (NumberFormatException e) {
+                            product.setError("Invalid number");
+                            return;
+                        }
 
-                alertDialog.show();
+                        databaseHelper = new DatabaseHelper(getContext());
+
+                        LocalDateTime myDateObj = null;
+                        String formattedDate = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            myDateObj = LocalDateTime.now();
+                            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
+                            formattedDate = myDateObj.format(myFormatObj);
+                        }
+
+                        boolean isCheck;
+                        if (IncomeIs) {
+                            isCheck = databaseHelper.insertIncomeData(title, des, formattedDate, priceDouble);
+                        } else {
+                            isCheck = databaseHelper.insertIncomeData(title, des, formattedDate, priceDouble);
+                        }
+
+                        loadData();
+
+                        if (isCheck) {
+                            alertDialog.dismiss();
+                            Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Error inserting data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        // Log the exception
+                        Log.e("DialogButtonOkClick", "Error in onClick", e);
+                        Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            alertDialog.show();
 
 
 
@@ -771,72 +835,134 @@ public class Wallet extends Fragment {
 
             // Ok button ==================================
             Button dialogButtonOk = (Button) viewDialog.findViewById(R.id.btn_dialog);
+//            dialogButtonOk.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public int hashCode() {
+//                    return super.hashCode();
+//                }
+//
+//                @Override
+//                public void onClick(View v) {
+//
+//                    String title = titleEd.getText().toString();
+//                    String des = where.getText().toString();
+//                    String status = product.getText().toString();
+//                    Double priceDouble = Double.parseDouble(status);
+//
+//                    if (title.isEmpty()){
+//                        titleEd.setError("Value is Emtiy");
+//                    } else if (des.isEmpty()) {
+//                        where.setError("Value is Emtiy");
+//
+//                    } else if (status.isEmpty()) {
+//                        product.setError("Value is Emtiy");
+//
+//                    }else {
+//
+//                        if (ExpenseIs) {
+//
+//                            databaseHelper = new DatabaseHelper(getContext());
+//
+//
+//                            LocalDateTime myDateObj = null;
+//                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                                myDateObj = LocalDateTime.now();
+//                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
+//                                formattedDate = myDateObj.format(myFormatObj);
+//                            }
+//
+//
+//
+//                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, formattedDate, priceDouble);
+//                            loadData();
+//                            if (isCheck) {
+//                                alertDialog.dismiss();
+//
+//
+//                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }else {
+//                            databaseHelper = new DatabaseHelper(getContext());
+//
+//                            Boolean isCheck = databaseHelper.insertExpenseData(title, des,formattedDate, priceDouble);
+//                            if (isCheck) {
+//                                alertDialog.dismiss();
+//                                loadData();
+//
+//                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//
+//                        }
+//
+//                    }
+//
+//                }
+//            });
+
             dialogButtonOk.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public int hashCode() {
-                    return super.hashCode();
-                }
-
-                @Override
                 public void onClick(View v) {
+                    try {
+                        String title = titleEd.getText().toString();
+                        String des = where.getText().toString();
+                        String status = product.getText().toString();
 
-                    String title = titleEd.getText().toString();
-                    String des = where.getText().toString();
-                    String status = product.getText().toString();
-                    Double priceDouble = Double.parseDouble(status);
-
-                    if (title.isEmpty()){
-                        titleEd.setError("Value is Emtiy");
-                    } else if (des.isEmpty()) {
-                        where.setError("Value is Emtiy");
-
-                    } else if (status.isEmpty()) {
-                        product.setError("Value is Emtiy");
-
-                    }else {
-
-                        if (ExpenseIs) {
-
-                            databaseHelper = new DatabaseHelper(getContext());
-
-
-                            LocalDateTime myDateObj = null;
-                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                                myDateObj = LocalDateTime.now();
-                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
-                                formattedDate = myDateObj.format(myFormatObj);
-                            }
-
-
-
-                            Boolean isCheck = databaseHelper.insertExpenseData(title, des, formattedDate, priceDouble);
-                            loadData();
-                            if (isCheck) {
-                                alertDialog.dismiss();
-
-
-                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
-                            }
-                        }else {
-                            databaseHelper = new DatabaseHelper(getContext());
-
-                            Boolean isCheck = databaseHelper.insertExpenseData(title, des,formattedDate, priceDouble);
-                            if (isCheck) {
-                                alertDialog.dismiss();
-                                loadData();
-
-                                Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
-                            }
-
-
+                        // Check for empty fields first
+                        if (title.isEmpty()) {
+                            titleEd.setError("Value is Empty");
+                            return;
+                        } else if (des.isEmpty()) {
+                            where.setError("Value is Empty");
+                            return;
+                        } else if (status.isEmpty()) {
+                            product.setError("Value is Empty");
+                            return;
                         }
 
-                    }
+                        // Parse the price value
+                        Double priceDouble;
+                        try {
+                            priceDouble = Double.parseDouble(status);
+                        } catch (NumberFormatException e) {
+                            product.setError("Invalid number");
+                            return;
+                        }
 
+                        databaseHelper = new DatabaseHelper(getContext());
+
+                        LocalDateTime myDateObj = null;
+                        String formattedDate = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            myDateObj = LocalDateTime.now();
+                            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
+                            formattedDate = myDateObj.format(myFormatObj);
+                        }
+
+                        boolean isCheck;
+                        if (ExpenseIs) {
+                            isCheck = databaseHelper.insertExpenseData(title, des, formattedDate, priceDouble);
+                        } else {
+                            isCheck = databaseHelper.insertExpenseData(title, des, formattedDate, priceDouble);
+                        }
+
+                        loadData();
+
+                        if (isCheck) {
+                            alertDialog.dismiss();
+                            Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), "Error inserting data", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        // Log the exception
+                        Log.e("DialogButtonOkClick", "Error in onClick", e);
+                        Toast.makeText(getContext(), "An error occurred", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 

@@ -108,64 +108,79 @@ public class DreamTab extends Fragment {
 
 
         // add Data into Database in Button Click =====================
-        addItem.setOnClickListener(view -> {
 
 
-            try {
-                imageBit = getBitmapAsByteArray(getBitmapFromUri(ImagePath));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+
+                    if (ImagePath != null){
+                    try {
+                        imageBit = getBitmapAsByteArray(getBitmapFromUri(ImagePath));
+                    } catch (IOException e) {
+                        Toast.makeText(getContext(), "Select Image", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    }else {
+                        Toast.makeText(getContext(), "Select Image", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    String title = dreamTitleEd.getText().toString();
+                    String des = dreamDesEd.getText().toString();
 
 
 
-            recyclerView.setVisibility(View.VISIBLE);
-
-            String title = dreamTitleEd.getText().toString();
-            String des = dreamDesEd.getText().toString();
 
 
-            if (imageBit == null){
-                Toast.makeText(getContext(), "Select Image", Toast.LENGTH_SHORT).show();
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-            else if (title.isEmpty()){
-                dreamTitleLayout.setError("Enter Title");
-                recyclerView.setVisibility(View.VISIBLE);
-            } else if (des.isEmpty()){
-                dreamDesLayout.setError("Enter Description");
-                recyclerView.setVisibility(View.VISIBLE);
-            }else {
+                    boolean addIs = true;
 
-                LocalDateTime myDateObj = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    myDateObj = LocalDateTime.now();
-                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
-                    createDate = myDateObj.format(myFormatObj);
-                }
+                    // Check for empty fields first
+                    if (title.isEmpty()) {
+                        dreamTitleLayout.setError("Value is Empty");
+                        return;
+                    } else if (des.isEmpty()) {
+                        dreamDesLayout.setError("Value is Empty");
+                        return;
+                    }
 
-                databaseHelper = new DatabaseHelper(getContext());
-                boolean isInserted = databaseHelper.DreamDataInsert(title,des, imageBit, createDate, "90/30/2024");
 
-                addDreamLayout.setVisibility(View.GONE);
-                if (isInserted){
 
-                    // load data form recycler view =================
+                    databaseHelper = new DatabaseHelper(getContext());
+
+                    LocalDateTime myDateObj = null;
+                    String formattedDate = null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        myDateObj = LocalDateTime.now();
+                        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
+                        formattedDate = myDateObj.format(myFormatObj);
+                    }
+
+                    boolean isCheck;
+                    if (addIs) {
+                        isCheck = databaseHelper.DreamDataInsert(title, des, imageBit, formattedDate, "90/30/2024" );
+                    } else {
+                        isCheck = databaseHelper.DreamDataInsert(title,des, imageBit, formattedDate, "90/30/2024");
+                    }
+
                     loadData();
 
-                    Toast.makeText(getContext(), "Dream Added", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                    if (isCheck) {
+                        addDreamLayout.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Error inserting data", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    // Log the exception
+                    Log.e("DialogButtonOkClick", "Error in onClick", e);
+                    Toast.makeText(getContext(), "Please Select Image and Other Fields", Toast.LENGTH_SHORT).show();
                 }
-
-                dreamTitleEd.setText("");
-                dreamDesEd.setText("");
-
-
             }
-
-
         });
+        // data add button end =========================
 
 
         addImageView.setOnClickListener(view -> {
