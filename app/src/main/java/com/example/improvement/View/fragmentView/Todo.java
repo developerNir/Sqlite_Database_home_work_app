@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -123,7 +124,9 @@ public class Todo extends Fragment {
 
             TextView title, description, dayTv, monthTv, dataTv, createDate, statusTV;
             ImageButton deleteImageButton;
+            CardView cardView;
 
+            cardView = view1.findViewById(R.id.cardView);
             title = view1.findViewById(R.id.titleTvTodo);
             description = view1.findViewById(R.id.desTvTodo);
             createDate = view1.findViewById(R.id.createDateTvTodo);
@@ -169,7 +172,6 @@ public class Todo extends Fragment {
             });
 
 
-
             return view1;
         }
     }
@@ -181,7 +183,7 @@ public class Todo extends Fragment {
         // list view and data form Adapter ==========================
         if(cursor.getCount() == 0){
             textView.setVisibility(View.VISIBLE);
-            textView.setText("No Data");
+            textView.setText("Click the Button below and Create todo List");
             Toast.makeText(getContext(), "No Data!", Toast.LENGTH_SHORT).show();
         }
 

@@ -253,12 +253,12 @@ public class Wallet extends Fragment {
                         String status = product.getText().toString();
                         Double priceDouble = Double.parseDouble(status);
 
-                        if (title.length()==0){
+                        if (title.isEmpty()){
                             titleEd.setError("Value is Emtiy");
-                        } else if (des.length() == 0) {
+                        } else if (des.isEmpty()) {
                             where.setError("Value is Emtiy");
 
-                        } else if (status.length() == 0 ) {
+                        } else if (status.isEmpty()) {
                             product.setError("Value is Emtiy");
 
                         }else {
@@ -785,12 +785,12 @@ public class Wallet extends Fragment {
                     String status = product.getText().toString();
                     Double priceDouble = Double.parseDouble(status);
 
-                    if (title.length()==0){
+                    if (title.isEmpty()){
                         titleEd.setError("Value is Emtiy");
-                    } else if (des.length() == 0) {
+                    } else if (des.isEmpty()) {
                         where.setError("Value is Emtiy");
 
-                    } else if (status.length() == 0 ) {
+                    } else if (status.isEmpty()) {
                         product.setError("Value is Emtiy");
 
                     }else {

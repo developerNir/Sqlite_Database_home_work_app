@@ -99,7 +99,6 @@ public class createTodo extends Fragment {
 
 
 
-
         // date picker EditText =======================================
         editTextDatePick.setOnClickListener(view3 -> {
 

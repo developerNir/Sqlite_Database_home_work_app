@@ -263,7 +263,7 @@ public class Note extends Fragment {
 
         if(cursor.getCount() == 0) {
             textView.setVisibility(View.VISIBLE);
-            textView.setText("No Note");
+            textView.setText("Click the Button below and Create Note List");
             Toast.makeText(getContext(), "No Data", Toast.LENGTH_SHORT).show();
         }
 

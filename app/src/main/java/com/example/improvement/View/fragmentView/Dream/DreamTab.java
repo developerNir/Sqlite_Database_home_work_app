@@ -66,11 +66,11 @@ public class DreamTab extends Fragment {
 
     DatabaseHelper databaseHelper;
     byte[] imageBit;
-    String createDate, EndDate, myEndDate;
+    String createDate, myEndDate;
     Bitmap bitmap;
     ArrayList<DreamModel> arrayList = new ArrayList<>();
     private DreamModel dreamModel;
-    Cursor cursor;
+
     TextView textMassage;
 
 
@@ -95,7 +95,7 @@ public class DreamTab extends Fragment {
         dreamDesLayout = myView.findViewById(R.id.DescriptionEdLayout);
         dreamTitleLayout = myView.findViewById(R.id.titleEdLayout);
 
-        addEndDateBtn = myView.findViewById(R.id.addEndDate);
+
 
         addItem = myView.findViewById(R.id.addItem);
 
@@ -104,14 +104,7 @@ public class DreamTab extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
 
 
-        addEndDateBtn.setOnClickListener(view -> {
 
-            myEndDate = datePickerSetAndEnd(getContext());
-
-            addEndDateBtn.setText(myEndDate);
-
-
-        });
 
 
         // add Data into Database in Button Click =====================
@@ -124,24 +117,24 @@ public class DreamTab extends Fragment {
                 throw new RuntimeException(e);
             }
 
-            myEndDate = addEndDateBtn.getText().toString();
 
-            addDreamLayout.setVisibility(View.GONE);
+
             recyclerView.setVisibility(View.VISIBLE);
 
             String title = dreamTitleEd.getText().toString();
             String des = dreamDesEd.getText().toString();
 
-            if (myEndDate == null){
-                Toast.makeText(getContext(), "Select your End Date", Toast.LENGTH_SHORT).show();
 
-            } else if (imageBit == null){
+            if (imageBit == null){
                 Toast.makeText(getContext(), "Select Image", Toast.LENGTH_SHORT).show();
+                recyclerView.setVisibility(View.VISIBLE);
             }
             else if (title.isEmpty()){
                 dreamTitleLayout.setError("Enter Title");
+                recyclerView.setVisibility(View.VISIBLE);
             } else if (des.isEmpty()){
                 dreamDesLayout.setError("Enter Description");
+                recyclerView.setVisibility(View.VISIBLE);
             }else {
 
                 LocalDateTime myDateObj = null;
@@ -154,6 +147,7 @@ public class DreamTab extends Fragment {
                 databaseHelper = new DatabaseHelper(getContext());
                 boolean isInserted = databaseHelper.DreamDataInsert(title,des, imageBit, createDate, "90/30/2024");
 
+                addDreamLayout.setVisibility(View.GONE);
                 if (isInserted){
 
                     // load data form recycler view =================
@@ -188,22 +182,6 @@ public class DreamTab extends Fragment {
 
             loadData();
 
-//            if (addDreamBtn.getVisibility() == View.VISIBLE){
-//                addDreamLayout.setVisibility(View.GONE);
-//                recyclerView.setVisibility(View.VISIBLE);
-//
-//                addDreamBtn.setIcon(getResources().getDrawable(R.drawable.baseline_check_24));
-//
-//            }
-//
-//            if (addDreamBtn.getVisibility() == View.GONE)
-//            {
-//                addDreamLayout.setVisibility(View.VISIBLE);
-//                recyclerView.setVisibility(View.GONE);
-//
-//                addDreamBtn.setIcon(getResources().getDrawable(R.drawable.add_ic));
-//
-//            }
         });
 
 
@@ -274,11 +252,11 @@ public class DreamTab extends Fragment {
             deleteImage.setOnClickListener(viewDelete ->{
 
                 int isDelete = databaseHelper.DeleteDreamById(myId);
-                loadData();
+
 
                 if(isDelete > 0){
-
-                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                    loadData();
+                    Toast.makeText(getContext(), "Data Deleted and Click the Dream Tab to Refresh", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
                 }
@@ -306,7 +284,7 @@ public class DreamTab extends Fragment {
     public void loadData(){
 
 
-        cursor = databaseHelper.getAllDreamData();
+        Cursor cursor = databaseHelper.getAllDreamData();
         arrayList.clear();
 
         if (cursor.getCount()== -1){
@@ -355,19 +333,10 @@ public class DreamTab extends Fragment {
                 }
                 arrayList.add(dreamModel);
 
-
-
-
             }
-
-
 
             MyAdapter myAdapter = new MyAdapter();
             recyclerView.setAdapter(myAdapter);
-
-//            MyAdapter myAdapter = new MyAdapter(getContext(), dataList);
-//            recyclerView.setAdapter(myAdapter);
-//            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
 
@@ -442,90 +411,6 @@ public class DreamTab extends Fragment {
         return bitmap;
     }
 
-
-
-
-    private String datePickerSetAndEnd(Context context){
-
-        final Calendar cldr = Calendar.getInstance();
-        int day = cldr.get(Calendar.DAY_OF_MONTH);
-        int month = cldr.get(Calendar.MONTH);
-        int year = cldr.get(Calendar.YEAR);
-
-        Log.d("log", "datePickerSetAndEnd: "+day+month+year);
-
-
-
-        // date picker dialog
-        picker = new DatePickerDialog(context,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-
-
-                        if(monthOfYear == 0){
-                            EndDate = "January "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "January", Toast.LENGTH_SHORT).show();
-                        }else if (monthOfYear == 1){
-                            EndDate = "February "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "February", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 2){
-                            EndDate = "Merch "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "Merch", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 3){
-                            EndDate = "April "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "April", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 4){
-                            EndDate = "May "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "May", Toast.LENGTH_SHORT).show();
-                        }else if (monthOfYear == 5){
-                            EndDate = "June "+dayOfMonth;
-                            Toast.makeText(getContext(), "June", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 6){
-                            EndDate = "July "+dayOfMonth;
-                            Toast.makeText(getContext(), "July", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 7){
-                            EndDate = "August "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "August", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 8){
-                            EndDate = "September "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "September", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 9){
-                            EndDate = "October "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "October", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 10){
-                            EndDate = "November "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "November", Toast.LENGTH_SHORT).show();
-                        }
-                        else if (monthOfYear == 11){
-                            EndDate = "December "+dayOfMonth;
-
-                            Toast.makeText(getContext(), "December", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                }, year, month, day);
-        picker.show();
-        return EndDate;
-    }
 
 
 }

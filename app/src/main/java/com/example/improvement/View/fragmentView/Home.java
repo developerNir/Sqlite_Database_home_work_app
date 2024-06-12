@@ -93,11 +93,6 @@ public class Home extends Fragment {
 
 
 
-
-
-
-
-
         return myView;
     }
 
@@ -146,83 +141,9 @@ public class Home extends Fragment {
 
         }
 
-
-    }
-
-    // adapter create ==============================
-//    private class MyAdapter extends BaseAdapter {
-//
-//        private Context context;
-//
-//        public MyAdapter(Context context) {
-//            this.context = context;
-//        }
-//        @Override
-//        public int getCount() {
-//            return arrayList.size();
-//        }
-//
-//        @Override
-//        public Object getItem(int i) {
-//            return null;
-//        }
-//
-//        @Override
-//        public long getItemId(int i) {
-//            return 0;
-//        }
-//
-//        @SuppressLint("MissingInflatedId")
-//        @Override
-//        public View getView(int i, View view, ViewGroup viewGroup) {
-//
-//            ImageView imageView;
-//            TextView textView;
-//            CardView cardView;
-//
-//            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            View viewHolder = layoutInflater.inflate(R.layout.dash_item, viewGroup, false);
-//
-//            imageView = viewHolder.findViewById(R.id.dash_image);
-//            textView = viewHolder.findViewById(R.id.dash_text);
-//            cardView = viewHolder.findViewById(R.id.cardView);
-//
-//
-//
-//            hashMap = arrayList.get(i);
-//            String id = hashMap.get("id");
-//            String image = hashMap.get("image");
-//            String text = hashMap.get("text");
-//
-//
-//            if (id.equals("1")){
-//                cardView.setOnClickListener(view1 -> {
-//                    startActivity(new Intent(context, BusinessInfo.class));
-//                });
-//            }
-//            if (id.equals("2")){
-//                cardView.setOnClickListener(view1 -> {
-//                    Toast.makeText(context, "this 2 item", Toast.LENGTH_SHORT).show();
-//                });
-//            }
-//            if (id.equals("3")){
-//                cardView.setOnClickListener(view1 -> {
-////                    startActivity(new Intent(context, CallListView.class));
-//                });
-//            }
-//
-//
-//
-//
-//            Picasso.get().load(image).into(imageView);
-//            textView.setText(text);
-//
-//
-//            return viewHolder;
-//        }
-//    }
+    }// loadData method end =================
 
 
-
+    // end ===========================================
 
 }

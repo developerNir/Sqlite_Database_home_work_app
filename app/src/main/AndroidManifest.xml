@@ -43,6 +43,10 @@
         <activity
             android:name=".View.activityView.MainActivity"
             android:exported="false" />
+
+        
+
+
     </application>
 
 </manifest>

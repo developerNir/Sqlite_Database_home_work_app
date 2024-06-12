@@ -107,7 +107,7 @@ public class ExpenseList extends Fragment {
                 if(var > 0){
 
 
-                    Toast.makeText(getContext(), "Data Deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Data Deleted Please Click the Wallet Tab and Refresh", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(getContext(), "Deletion Error", Toast.LENGTH_SHORT).show();
                 }
@@ -125,7 +125,7 @@ public class ExpenseList extends Fragment {
 
         Cursor cursor = databaseHelper.getAllDataExpense();
         arrayList.clear();
-
+        
 
 
         if (cursor != null && cursor.getCount() > 0) {
