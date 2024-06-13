@@ -115,6 +115,10 @@ public class DreamTab extends Fragment {
             public void onClick(View v) {
                 try {
 
+                    addDreamBtn.setVisibility(View.VISIBLE);
+                    textMassage.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
                     if (ImagePath != null){
                     try {
                         imageBit = getBitmapAsByteArray(getBitmapFromUri(ImagePath));
@@ -169,6 +173,8 @@ public class DreamTab extends Fragment {
                     if (isCheck) {
                         addDreamLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
+                        dreamTitleEd.setText("");
+                        dreamDesEd.setText("");
                         Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), "Error inserting data", Toast.LENGTH_SHORT).show();
@@ -178,7 +184,9 @@ public class DreamTab extends Fragment {
                     Log.e("DialogButtonOkClick", "Error in onClick", e);
                     Toast.makeText(getContext(), "Please Select Image and Other Fields", Toast.LENGTH_SHORT).show();
                 }
+
             }
+
         });
         // data add button end =========================
 
@@ -192,10 +200,11 @@ public class DreamTab extends Fragment {
 
         addDreamBtn.setOnClickListener(view -> {
 
+            textMassage.setVisibility(View.GONE);
+            addDreamBtn.setVisibility(View.GONE);
             addDreamLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
 
-            loadData();
 
         });
 
@@ -302,7 +311,7 @@ public class DreamTab extends Fragment {
         Cursor cursor = databaseHelper.getAllDreamData();
         arrayList.clear();
 
-        if (cursor.getCount()== -1){
+        if (cursor.getCount()== 0){
             textMassage.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
             textMassage.setText("Click the Button below to add your Dream");

@@ -78,6 +78,7 @@ public class Note extends Fragment {
 
         // AlertDialog =================note create =========================
         floatingActionButton.setOnClickListener(view -> {
+            textView.setVisibility(View.GONE);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -112,42 +113,56 @@ public class Note extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-
-                    String title = titleEd.getText().toString();
-                    String des = desEd.getText().toString();
+                    try {
 
 
-                    if (title.length()==0){
-                        titleEd.setError("Value is Emtiy");
-                    } else if (des.length() == 0) {
-                        desEd.setError("Value is Emtiy");
-
-                    }else {
-
-                        LocalDateTime myDateObj = null;
-                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                            myDateObj = LocalDateTime.now();
-                            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
-                            formattedDate = myDateObj.format(myFormatObj);
-                        }
-
-                        databaseHelper = new DatabaseHelper(getContext());
-
-                        Boolean isCheck = databaseHelper.noteInsert(title, des, formattedDate);
-
-                        // reload data ==============
-                        loadData();
+                        String title = titleEd.getText().toString();
+                        String des = desEd.getText().toString();
 
 
-                        if (isCheck){
-                            alertDialog.dismiss();
+                        if (title.length()==0){
+                            titleEd.setError("Value is Emtiy");
+                            return;
+                        } else if (des.length() == 0) {
+                            desEd.setError("Value is Emtiy");
+                            return;
 
-                            Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
                         }else {
-                            alertDialog.dismiss();
-                            Toast.makeText(getContext(), "get an Error", Toast.LENGTH_SHORT).show();
-                        }
 
+                            LocalDateTime myDateObj = null;
+                            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                                myDateObj = LocalDateTime.now();
+                                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("EEEE dd-MMMM-yyyy HH:mm:ss");
+                                formattedDate = myDateObj.format(myFormatObj);
+                            }
+
+                            boolean isCheck = false;
+                            databaseHelper = new DatabaseHelper(getContext());
+
+                            if (isCheck){
+
+                                isCheck = databaseHelper.noteInsert(title, des, formattedDate);
+                            }else {
+                                isCheck = databaseHelper.noteInsert(title, des, formattedDate);
+
+                            }
+
+                            // reload data ==============
+                            loadData();
+
+
+                            if (isCheck){
+                                alertDialog.dismiss();
+
+                                Toast.makeText(getContext(), "Note Data inserted ...", Toast.LENGTH_SHORT).show();
+                            }else {
+                                alertDialog.dismiss();
+                                Toast.makeText(getContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(getContext(), "Something Wrong", Toast.LENGTH_SHORT).show();
                     }
 
                 }

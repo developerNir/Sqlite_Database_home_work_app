@@ -199,49 +199,57 @@ public class createTodo extends Fragment {
 
         create.setOnClickListener(view -> {
 
-            String titleValue = titleEd.getText().toString();
-            String desValue = DesEd.getText().toString();
+            try {
 
-            if (titleValue.length()==0){
-                titleEd.setError("Value is Emtiy");
-            } else if (desValue.length() == 0) {
-                DesEd.setError("Null Value");
-            } else if (DropItem.length() == 0) {
-                Toast.makeText(context, "Please Status Select", Toast.LENGTH_SHORT).show();
-            } else {
+                String titleValue = titleEd.getText().toString();
+                String desValue = DesEd.getText().toString();
 
-
-                if (CreateDay.length() == 1){
-                    CreateDay = "0"+CreateDay;
-                }
-
-                LocalDateTime myDateObj = null;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    myDateObj = LocalDateTime.now();
-                    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("E dd-MM-yyyy  HH:mm:ss");
-                    DateTimeFormatter Eee = DateTimeFormatter.ofPattern("E");
-                    formatData = myDateObj.format(myFormatObj);
-                    EeeData = myDateObj.format(Eee);
-                }
+                if (titleValue.isEmpty()){
+                    titleEd.setError("Value is Emtiy");
+                    return;
+                } else if (desValue.isEmpty()) {
+                    DesEd.setError("Null Value");
+                    return;
+                } else if (DropItem.length() == 0) {
+                    Toast.makeText(context, "Please Status Select", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
 
 
+                    if (CreateDay.length() == 1){
+                        CreateDay = "0"+CreateDay;
+                    }
 
-                // data insert ===================================
-                isInserted  = databaseHelper.insertData(titleValue, desValue, dayName+""+CreateDay+" "+CreateMonth, formatData, DropItem);
+                    LocalDateTime myDateObj = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        myDateObj = LocalDateTime.now();
+                        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("E dd-MM-yyyy  HH:mm:ss");
+                        DateTimeFormatter Eee = DateTimeFormatter.ofPattern("E");
+                        formatData = myDateObj.format(myFormatObj);
+                        EeeData = myDateObj.format(Eee);
+                    }
 
-                if (isInserted){
-                    Toast.makeText(getContext(), "Data Inserted...", Toast.LENGTH_SHORT).show();
 
-                    constraintLayout.setVisibility(View.GONE);
-                    FragmentManager fragmentManager = getChildFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.createTodoFrameLayout, new Todo());
-                    fragmentTransaction.commit();
 
-                }else
-                    Toast.makeText(getContext(), "Something went Wrong", Toast.LENGTH_SHORT).show();
+                    // data insert ===================================
+                    isInserted  = databaseHelper.insertData(titleValue, desValue, dayName+""+CreateDay+" "+CreateMonth, formatData, DropItem);
 
-            }// end
+                    if (isInserted){
+                        Toast.makeText(getContext(), "Data Inserted...", Toast.LENGTH_SHORT).show();
+
+                        constraintLayout.setVisibility(View.GONE);
+                        FragmentManager fragmentManager = getChildFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.createTodoFrameLayout, new Todo());
+                        fragmentTransaction.commit();
+
+                    }else
+                        Toast.makeText(getContext(), "Something went Wrong", Toast.LENGTH_SHORT).show();
+
+                }// end
+            }catch (Exception e){
+                Toast.makeText(context, "Todo Create Failed", Toast.LENGTH_SHORT).show();
+            }
 
         });// end Create =============================
 
