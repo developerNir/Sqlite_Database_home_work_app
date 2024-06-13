@@ -74,6 +74,7 @@
                     android:id="@+id/deleteImage"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:layout_marginBottom="20dp"
                     android:paddingStart="4dp"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/delete_ic"

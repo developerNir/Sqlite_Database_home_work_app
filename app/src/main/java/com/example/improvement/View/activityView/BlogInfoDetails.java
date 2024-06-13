@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.improvement.R;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.button.MaterialButton;
 
 public class BlogInfoDetails extends AppCompatActivity {
@@ -49,7 +50,12 @@ public class BlogInfoDetails extends AppCompatActivity {
 
         setContentView(R.layout.activity_blog_info_details);
 
-
+        new Thread(
+                () -> {
+                    // Initialize the Google Mobile Ads SDK on a background thread.
+                    MobileAds.initialize(this, initializationStatus -> {});
+                })
+                .start();
 
         tvTitle = findViewById(R.id.titleTV);
         tvDes = findViewById(R.id.descriptionTV);
