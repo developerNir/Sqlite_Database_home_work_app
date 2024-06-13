@@ -7,10 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.example.improvement.R;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -22,9 +19,8 @@ import com.google.android.material.button.MaterialButton;
 public class BlogInfoDetails extends AppCompatActivity {
 
 
-    TemplateView LargeTemplate;
+    TemplateView myTemplate, LargeTemplate;
 
-    public static String COLUMN_ID;
     public static String COLUMN_TITEL;
     public static String COLUMN_DES;
     public static String COLUMN_HONE;
@@ -55,6 +51,7 @@ public class BlogInfoDetails extends AppCompatActivity {
         setContentView(R.layout.activity_blog_info_details);
 
         // introduce the TemplateView ads ============================
+        myTemplate = findViewById(R.id.my_template);
         LargeTemplate = findViewById(R.id.large_template);
 
 
@@ -98,6 +95,7 @@ public class BlogInfoDetails extends AppCompatActivity {
                     @Override
                     public void onNativeAdLoaded(NativeAd nativeAd) {
 
+                        myTemplate.setNativeAd(nativeAd);
                         LargeTemplate.setNativeAd(nativeAd);
 
                     }

@@ -21,6 +21,12 @@
             android:layout_margin="10dp"
             >
 
+            <!--  This is your template view -->
+            <com.google.android.ads.nativetemplates.TemplateView
+                android:id="@+id/my_template"
+                app:gnt_template_type="@layout/gnt_small_template_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
             <ImageView
@@ -148,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:weightSum="2"
                 android:layout_marginVertical="14dp"
                 >
                 <com.google.android.material.button.MaterialButton
@@ -160,7 +166,7 @@
                     android:backgroundTint="#F2E6F4"
                     android:textColor="#8C8484"
                     app:iconTint="#918989"
-                    android:textSize="10dp"
+                    android:textSize="10sp"
                     android:layout_weight="1"
                     />
                 <com.google.android.material.button.MaterialButton
@@ -168,21 +174,9 @@
                     android:layout_height="wrap_content"
                     app:icon="@drawable/share_ic"
                     android:text="Share"
-                    android:textSize="10dp"
+                    android:textSize="10sp"
                     android:layout_marginHorizontal="10dp"
                     android:id="@+id/ShareButton"
-                    android:backgroundTint="#F2E6F4"
-                    android:textColor="#8C8484"
-                    app:iconTint="#918989"
-                    android:layout_weight="1"
-                    />
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:icon="@drawable/whats_app_ic"
-                    android:text="WhatsApp"
-                    android:textSize="10dp"
-                    android:id="@+id/WhatsAppButton"
                     android:backgroundTint="#F2E6F4"
                     android:textColor="#8C8484"
                     app:iconTint="#918989"
@@ -197,7 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="20dp"
+                android:layout_marginVertical="30dp"
                 >
             <!--  This is your template view -->
             <com.google.android.ads.nativetemplates.TemplateView
