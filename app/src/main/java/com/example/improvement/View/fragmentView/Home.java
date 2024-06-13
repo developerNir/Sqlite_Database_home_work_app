@@ -49,31 +49,6 @@ public class Home extends Fragment {
 
 
 
-//        hashMap = new HashMap<>();
-//        hashMap.put("id", "1");
-//        hashMap.put("image", "https://res.cloudinary.com/dwlcudfef/image/upload/v1715218902/icons/hcspubfb3titsq2ojrj2.png");
-//        hashMap.put("text", "News");
-//        arrayList.add(hashMap);
-//
-//        hashMap = new HashMap<>();
-//        hashMap.put("id", "2");
-//        hashMap.put("image", "https://res.cloudinary.com/dwlcudfef/image/upload/v1715221364/icons/tzw5qvycyiy1xaqwehfh.png");
-//        hashMap.put("text", "Education");
-//        arrayList.add(hashMap);
-//
-//        hashMap = new HashMap<>();
-//        hashMap.put("id", "3");
-//        hashMap.put("image", "https://res.cloudinary.com/dwlcudfef/image/upload/v1715256380/icons/ti2riptmdjlwatvyjn6j.png");
-//        hashMap.put("text", "Call Book");
-//        arrayList.add(hashMap);
-//
-//        hashMap = new HashMap<>();
-//        hashMap.put("id", "3");
-//        hashMap.put("image", "https://res.cloudinary.com/dwlcudfef/image/upload/v1715256380/icons/ti2riptmdjlwatvyjn6j.png");
-//        hashMap.put("text", "Productivity");
-//        arrayList.add(hashMap);
-
-
         BlogDatabase myDatabase = new BlogDatabase(getContext());
 
         cursor = myDatabase.getAllData();

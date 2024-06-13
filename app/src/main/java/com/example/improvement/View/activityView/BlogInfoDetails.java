@@ -41,7 +41,7 @@ public class BlogInfoDetails extends AppCompatActivity {
 
     TextView tvTitle, tvDes, tvHone, tvDone, tvHtwo, tvDtwo, tvHthree, tvDthree, tvHfour, tvDfour, tvHfive, tvDfive, tvQoute;
     ImageView ivImage;
-    MaterialButton likesButton, ShareButton, WhatsAppButton;
+    MaterialButton likesButton, ShareButton;
     TextView PreviousButtonTV, NextButtonTV;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -85,7 +85,6 @@ public class BlogInfoDetails extends AppCompatActivity {
 
         likesButton = findViewById(R.id.likesButton);
         ShareButton = findViewById(R.id.ShareButton);
-        WhatsAppButton = findViewById(R.id.WhatsAppButton);
 
 
 // ads Initialize ============================Load Native Ads
