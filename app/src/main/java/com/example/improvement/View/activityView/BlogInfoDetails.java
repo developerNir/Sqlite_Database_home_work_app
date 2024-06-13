@@ -7,18 +7,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 import com.example.improvement.R;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdLoader;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.material.button.MaterialButton;
 
 public class BlogInfoDetails extends AppCompatActivity {
 
+
+    TemplateView LargeTemplate;
 
     public static String COLUMN_ID;
     public static String COLUMN_TITEL;
@@ -50,6 +54,11 @@ public class BlogInfoDetails extends AppCompatActivity {
 
         setContentView(R.layout.activity_blog_info_details);
 
+        // introduce the TemplateView ads ============================
+        LargeTemplate = findViewById(R.id.large_template);
+
+
+        // ads Initialize ============================
         new Thread(
                 () -> {
                     // Initialize the Google Mobile Ads SDK on a background thread.
@@ -82,6 +91,22 @@ public class BlogInfoDetails extends AppCompatActivity {
         WhatsAppButton = findViewById(R.id.WhatsAppButton);
 
 
+// ads Initialize ============================Load Native Ads
+        MobileAds.initialize(this);
+        AdLoader adLoader = new AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+                .forNativeAd(new NativeAd.OnNativeAdLoadedListener() {
+                    @Override
+                    public void onNativeAdLoaded(NativeAd nativeAd) {
+
+                        LargeTemplate.setNativeAd(nativeAd);
+
+                    }
+                })
+                .build();
+
+        adLoader.loadAd(new AdRequest.Builder().build());
+
+        // ads Initialize ============================
 
 
         tvTitle.setText(COLUMN_TITEL);

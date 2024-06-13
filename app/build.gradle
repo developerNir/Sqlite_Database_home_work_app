@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 
     implementation 'com.google.android.gms:play-services-ads:23.1.0'
+    implementation project(':nativetemplates')
 
 
 }

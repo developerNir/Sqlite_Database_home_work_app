@@ -18,11 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:layout_margin="10dp"
             >
+
+
+
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="190dp"
+                android:layout_marginTop="20dp"
                 android:src="@mipmap/ic_launcher"
                 android:id="@+id/topImg"
                 android:scaleType="centerCrop"
@@ -187,6 +191,23 @@
 
             </LinearLayout>
 
+<!--            Google Ads =========================-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="20dp"
+                >
+            <!--  This is your template view -->
+            <com.google.android.ads.nativetemplates.TemplateView
+                android:id="@+id/large_template"
+                app:gnt_template_type="@layout/gnt_medium_template_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -246,7 +267,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Qaute"
+                    android:text="Quotes"
                     android:padding="20dp"
                     android:textColor="#A82F2F"
                     android:textStyle="italic"
