@@ -115,9 +115,9 @@ public class DreamTab extends Fragment {
             public void onClick(View v) {
                 try {
 
-                    addDreamBtn.setVisibility(View.VISIBLE);
+
                     textMassage.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
+
 
                     if (ImagePath != null){
                     try {
@@ -173,6 +173,7 @@ public class DreamTab extends Fragment {
                     if (isCheck) {
                         addDreamLayout.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
+                        addDreamBtn.setVisibility(View.VISIBLE);
                         dreamTitleEd.setText("");
                         dreamDesEd.setText("");
                         Toast.makeText(getContext(), "Data inserted ...", Toast.LENGTH_SHORT).show();
