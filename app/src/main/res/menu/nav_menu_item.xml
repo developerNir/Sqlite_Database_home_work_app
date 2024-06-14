@@ -28,7 +28,7 @@
         />
     <item
         android:id="@+id/navInventory"
-        android:title="Inventory"
+        android:title="Dream"
         android:icon="@drawable/inventory_ic"
         android:iconTint="#9C27B0"
         />
