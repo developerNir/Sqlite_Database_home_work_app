@@ -23,12 +23,6 @@
             android:name=".View.activityView.BlogInfoDetails"
             android:exported="false" />
         <activity
-            android:name=".View.activityView.BlogListInfo"
-            android:exported="false" />
-        <activity
-            android:name=".View.activityView.BusinessInfo"
-            android:exported="false" />
-        <activity
             android:name=".View.activityView.OnBoarding"
             android:exported="false" />
         <activity

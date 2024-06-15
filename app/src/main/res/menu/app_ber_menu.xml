@@ -14,18 +14,12 @@
     android:id="@+id/action_group">
 
     <item android:id="@+id/action_more_apps"
-        android:title="More Apps"
+        android:title="Privacy Policy"
         android:icon="@drawable/settings_ic"
         android:iconTintMode="multiply"
         android:iconTint="#FFFFFF"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/action_rate_us"
-        android:title="Rate Us"
-        android:icon="@drawable/settings_ic"
-        android:iconTintMode="multiply"
-        android:iconTint="#FFFFFF"
-        app:showAsAction="never"/>
 
     <item android:id="@+id/action_developer"
         android:title="Developer"

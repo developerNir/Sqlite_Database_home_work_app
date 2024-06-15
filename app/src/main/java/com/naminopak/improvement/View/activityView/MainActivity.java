@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import androidx.activity.OnBackPressedCallback;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -68,12 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (item.getItemId() == R.id.action_more_apps){
-                    Toast.makeText(MainActivity.this, "More Apps", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                    intent.setData(Uri.parse("https://sites.google.com/view/improvement-privacy-policy"));
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Privacy Policy", Toast.LENGTH_SHORT).show();
                 }
 
-                if (item.getItemId() == R.id.action_rate_us){
-                    Toast.makeText(MainActivity.this, "Rate Us", Toast.LENGTH_SHORT).show();
-                }
 
 
 
